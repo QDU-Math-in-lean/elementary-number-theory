@@ -10,7 +10,7 @@ import Mathlib.Analysis.Normed.Group.Basic
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.NumberTheory.Harmonic.Defs
 import Mathlib.NumberTheory.Harmonic.Bounds
-
+import Mathlib.LinearAlgebra.Matrix.Trace
 -- 禁止多目标检查
 set_option linter.style.multiGoal false
 
