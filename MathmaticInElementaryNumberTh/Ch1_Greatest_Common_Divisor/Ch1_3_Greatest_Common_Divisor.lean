@@ -1,13 +1,18 @@
-import MathmaticInElementaryNumberTh.Ch1_Greatest_Common_Divisor.Ch1_2_Division_with_remainder
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Nat.Basic
+import Mathlib.Data.Finset.Basic
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.NumberTheory.Divisors
+import Mathlib.Tactic
+import Mathlib.Data.Nat.GCD.Basic
+import Mathlib.Data.Int.Basic
+import Mathlib.Data.Fin.Basic
 
 -- 禁用未使用变量警告
 -- set_option linter.unusedVariables false
 
 open Int
 open Finset
-
-open Excat_Division
-open Division_with_remainder
 
 -- # Chapter 1 Greatest Common Divisor
 
@@ -71,6 +76,6 @@ theorem gcd_eq_left (m n : ℤ) (hmn : m ∣ n) (hm_le_0: 0 ≤ m): gcd m n = m 
 
 -- In particular, gcd(m, 0) = m for any m ∈ Z with m > 0
 theorem gcd_eq_zero (m : ℤ) (hm : m > 0) : gcd m 0 = Int.natAbs m := by
-  exact
+  sorry
 
 end Greatest_Common_Divisor

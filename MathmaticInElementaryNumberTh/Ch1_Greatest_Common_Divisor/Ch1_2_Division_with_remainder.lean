@@ -1,5 +1,12 @@
-import MathmaticInElementaryNumberTh.Ch1_Greatest_Common_Divisor.Ch1_1_Excat_Division
-
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Nat.Basic
+import Mathlib.Data.Finset.Basic
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.NumberTheory.Divisors
+import Mathlib.Tactic
+import Mathlib.Data.Nat.GCD.Basic
+import Mathlib.Data.Int.Basic
+import Mathlib.Data.Fin.Basic
 -- 禁用未使用变量警告
 -- set_option linter.unusedVariables false
 
