@@ -26,10 +26,23 @@ namespace Bezout_Identity
 -- For m, n ∈ Z, not both zero,
 -- there exist a, b ∈ Z,
 -- such that gcd(m, n) = am + bn
+#check exists_gcd_eq_mul_add_mul
+#check Int.gcd_dvd_iff
 theorem bezout_identity (m n : ℕ) (hm_not_zero : m ≠ 0) (hn_not_zero : n ≠ 0) :
     ∃ a b : ℤ , Nat.gcd m n = a * m + b * n := by
-    revert n
-    apply Nat.strong_induction_on m
-    sorry
+    -- 将 m, n 视为整数
+    let m' : ℤ := ↑m
+    let n' : ℤ := ↑n
+    -- 使用整数上的 Bézout 恒等式 Int.gcd_eq_gcd_ab
+    have h_bezout : m'.gcd n' = Int.gcdA m' n' * m' + Int.gcdB m' n' * n' := by
+        simp [Int.gcd_eq_gcd_ab m' n']
+        grind
+    -- 建立 Nat.gcd 和 Int.gcd 的联系
+    have h_gcd_eq : Nat.gcd m n = m'.gcd n' := by
+        simp [m', n']
+    -- 构造系数
+    use Int.gcdA m' n', Int.gcdB m' n'
+    -- 证明等式
+    rw [h_gcd_eq, h_bezout]
 
 end Bezout_Identity

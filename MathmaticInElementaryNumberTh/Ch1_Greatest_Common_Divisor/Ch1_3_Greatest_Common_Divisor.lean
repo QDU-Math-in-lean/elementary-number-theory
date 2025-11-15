@@ -75,7 +75,13 @@ theorem gcd_eq_left (m n : ℤ) (hmn : m ∣ n) (hm_le_0: 0 ≤ m): gcd m n = m 
 -- ### Proposition 1.5.3 (The greatest common divisor divides both numbers)
 
 -- In particular, gcd(m, 0) = m for any m ∈ Z with m > 0
-theorem gcd_eq_zero (m : ℤ) (hm : m > 0) : gcd m 0 = Int.natAbs m := by
-  sorry
+theorem gcd_eq_zero (m : ℤ) : gcd m 0 = Int.natAbs m := by
+  have h1 : Int.natAbs m = m.natAbs := by rfl
+  have h2 : m ∣ 0 := by
+    exact Int.dvd_zero m
+  have h3 : gcd m 0 = m.gcd 0:= by
+    rfl
+  rw [h3]
+  simp
 
 end Greatest_Common_Divisor

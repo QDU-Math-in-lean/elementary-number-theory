@@ -43,9 +43,10 @@ theorem uniqueness_of_one_in_prime_divisibility (n : ℕ) :
     by_contra not_h_le_two
     have h_le_two : n ≤ 1 := by
       linarith
-    case n with
-    | zero => linarith
-    | succ zero => linarith
+    rcases n
+
+
+
 
   obtain ⟨p, h_prime, h_dvd⟩ := by
     exact le_two_exists_prime_divisors n h_ge_two
