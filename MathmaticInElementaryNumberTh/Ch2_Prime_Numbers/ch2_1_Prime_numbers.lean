@@ -11,7 +11,7 @@ import Mathlib.Data.Fin.Basic
 -- 禁用未使用变量警告
 -- set_option linter.unusedVariables false
 
-open Nat
+open Int
 
 open Finset
 
@@ -31,28 +31,23 @@ theorem composite_prime_divisor_bound (n : ℕ) (hn : n ≥ 2) (h_composite : ¬
   ∃ p : ℕ, Nat.Prime p ∧ p ∣ n ∧ p ≤ Nat.sqrt n := by
   have h_ne_one : n ≠ 1 := by
     linarith
-  let p := Nat.minFac n
-  have h_prime : Nat.Prime p := by
-    exact Nat.minFac_prime h_ne_one
-  have h_dvd : p ∣ n := by
-    exact Nat.minFac_dvd n
-  have h_le_sqrt : p * p ≤ n := by
-    exact Nat.minFac_le h_ne_one
-  have h_sqrt : p ≤ Nat.sqrt n := by
-    apply Nat.le_of_mul_le_mul_left h_le_sqrt
-    exact Nat.zero_lt_succ 0
-  use p
-  constructor
-  · exact h_prime
-  constructor
-  · exact h_dvd
-  · exact h_sqrt
+
+  sorry
+
 
 theorem uniqueness_of_one_in_prime_divisibility (n : ℕ) :
   (∀ p : ℕ, Nat.Prime p → ¬(p ∣ n)) → n = 1 := by
   contrapose!
   intro h_ne_one
   have h_ge_two : n ≥ 2 := by
-    exact Nat.succ_le_iff.mpr (Nat.lt_of_le_and_ne (Nat.zero_le n) h_ne_one)
-  obtain ⟨p, h_prime, h_dvd⟩ := le_two_exists_prime_divisors n h_ge_two
+    by_contra not_h_le_two
+    have h_le_two : n ≤ 1 := by
+      linarith
+    rcases n
+
+
+
+
+  obtain ⟨p, h_prime, h_dvd⟩ := by
+    exact le_two_exists_prime_divisors n h_ge_two
   exact ⟨p, h_prime, h_dvd⟩

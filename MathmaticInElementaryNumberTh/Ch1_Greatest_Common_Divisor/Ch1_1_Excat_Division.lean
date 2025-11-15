@@ -1,4 +1,12 @@
-import MathmaticInElementaryNumberTh.Basic
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Nat.Basic
+import Mathlib.Data.Finset.Basic
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.NumberTheory.Divisors
+import Mathlib.Tactic
+import Mathlib.Data.Nat.GCD.Basic
+import Mathlib.Data.Int.Basic
+import Mathlib.Data.Fin.Basic
 
 -- 禁用未使用变量警告
 -- set_option linter.unusedVariables false
@@ -16,20 +24,20 @@ namespace Excat_Division
 -- ### Definition 1.1 (Exact Division)
 
 -- def m|n
-def e_dvd (m n : ℤ) (h : m ≠ 0) : Prop := ∃ q : ℤ, n = q * m
+def e_dvd (m n : ℤ) : Prop := ∃ q : ℤ, n = q * m
 
 -- 值得注意的是, mathlib中并没有对除数非0的限制
 -- 故有其等价定义,借用mathlib 中的 int m|n
 -- instance : Dvd Int where
 -- dvd a b := Exists (fun c => b = a * c)
-def e_dvd_equiv (m n : ℤ) (h : m ≠ 0) : Prop := m ∣ n
+def e_dvd_equiv (m n : ℤ) : Prop := m ∣ n
 
 
 -- ### Proposition 1.1 (Mutual Divisibility Implies Equality)
 
 -- If m |n and n |m, then m = ±n.
-theorem e_dvd_iff_eq (m n : ℤ) (hm : m ≠ 0) (hn : n ≠ 0) :
-    e_dvd m n hm ∧ e_dvd n m hn ↔ m = n ∨ m = -n := by
+theorem e_dvd_iff_eq (m n : ℤ) (hn : n ≠ 0) :
+    e_dvd m n  ∧ e_dvd n m  ↔ m = n ∨ m = -n := by
   constructor
   · rintro ⟨⟨q1, h1⟩, ⟨q2, h2⟩⟩
     have hq : q1 * q2 = 1 := by
@@ -73,8 +81,8 @@ theorem e_dvd_iff_eq (m n : ℤ) (hm : m ≠ 0) (hn : n ≠ 0) :
 -- ### Proposition 1.2 (Transitivity of Divisibility)
 
 -- If d|m and m|n, then d|n.
-theorem e_dvd_trans (d m n : ℤ) (hd : d ≠ 0) (hm : m ≠ 0) (hn : n ≠ 0) :
-    e_dvd d m hd → e_dvd m n hm → e_dvd d n hd := by
+theorem e_dvd_trans (d m n : ℤ) :
+    e_dvd d m → e_dvd m n → e_dvd d n := by
   intro h_dvd_dm h_dvd_mn
   rcases h_dvd_dm with ⟨m', h1⟩ -- 展开 e_dvd 定义
   rcases h_dvd_mn with ⟨n', h2⟩
@@ -86,8 +94,8 @@ theorem e_dvd_trans (d m n : ℤ) (hd : d ≠ 0) (hm : m ≠ 0) (hn : n ≠ 0) :
 -- ### Proposition 1.3 (Divisibility of Linear Combination)
 
 -- If d|m and d|n, then d|am + bn for any a, b ∈Z.
-theorem e_dvd_add_mul (d m n a b : ℤ) (hd : d ≠ 0) (hm : m ≠ 0) (hn : n ≠ 0) :
-    e_dvd d m hd → e_dvd d n hd → e_dvd d (a * m + b * n) hd := by
+theorem e_dvd_add_mul (d m n a b : ℤ) :
+    e_dvd d m → e_dvd d n → e_dvd d (a * m + b * n) := by
   intro h_dvd_dm h_dvd_dn
   rcases h_dvd_dm with ⟨m', h1⟩
   rcases h_dvd_dn with ⟨n', h2⟩
@@ -99,8 +107,8 @@ theorem e_dvd_add_mul (d m n a b : ℤ) (hd : d ≠ 0) (hm : m ≠ 0) (hn : n �
 -- ### Proposition 1.4 (Bound of Divisors)
 
 -- If m|n and n ≠ 0, then |m|≤|n|
-theorem e_dvd_le (m n : ℤ) (hm : m ≠ 0) (hn : n ≠ 0) :
-    e_dvd m n hm → |m| ≤ |n| := by
+theorem e_dvd_le (m n : ℤ)  (hn : n ≠ 0) :
+    e_dvd m n → |m| ≤ |n| := by
   intro h_dvd_mn
   rcases h_dvd_mn with ⟨q, h1⟩
 
@@ -131,11 +139,11 @@ theorem e_dvd_le (m n : ℤ) (hm : m ≠ 0) (hn : n ≠ 0) :
 -- ### Corollary 1.1 (Divisibility with Restriction Forces Zero)
 
 -- If m|n and |n| < |m|, then n = 0
-theorem e_dvd_abs_lt_zero (m n : ℤ) (hm : m ≠ 0) (hn : n ≠ 0) :
-    e_dvd m n hm → |n| < |m| → n = 0 := by
+theorem e_dvd_abs_lt_zero (m n : ℤ) (hn : n ≠ 0) :
+    e_dvd m n→ |n| < |m| → n = 0 := by
   intro h_dvd_mn h_lt
   have h_le : |m| ≤ |n| := by
-    exact e_dvd_le m n hm hn h_dvd_mn
+    exact e_dvd_le m n hn h_dvd_mn
   linarith
 
 end Excat_Division
