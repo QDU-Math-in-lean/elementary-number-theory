@@ -1,0 +1,1720 @@
+\documentclass[11pt]{elegantbook}
+
+\title{Elementary Number Theory}
+\subtitle{An Invitation to The World of Integers}
+
+\author{Kui Liu \& Jiong Yang}
+\institute{Qingdao University}
+\date{September 1st, 2025}
+%\version{4.3}
+%\bioinfo{Bio}{Information}
+
+\extrainfo{Victory won\rq t come to us unless we go to it. }
+
+\logo{logo-blue.png}
+\cover{cover.jpg}
+
+% modify the color in the middle of titlepage
+\definecolor{customcolor}{RGB}{32,178,170}
+\colorlet{coverlinecolor}{customcolor}
+
+\begin{document}
+\maketitle
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+
+
+\chapter*{Introduction}
+\markboth{Introduction}{Introduction}
+
+Number theory is a branch of pure mathematics dedicated to the study of integers. Regarded as one of the most fundamental areas of mathematics, it has deep connections with other disciplines such as analysis, algebra, and geometry. In modern times, number theory has found widespread applications, particularly in cryptography, where it plays a vital role in ensuring information security. Due to its profound theoretical significance and foundational importance, number theory is often hailed as the "Queen of Mathematics."
+
+Elementary number theory is a fundamental branch of number theory that mainly studies integers and their basic properties using elementary methods. It traces back to ancient civilizations like the Egyptians and Babylonians who had basic number - related knowledge for practical needs. However, the ancient Greeks, particularly Pythagoras and his school, were among the first to study numbers for their own sake, exploring prime and perfect numbers. Euclid's "Elements" was a landmark, presenting the Euclidean algorithm and proving the infinity of prime numbers. During the Middle Ages, Arab mathematicians preserved and expanded on Greek works, while in Europe, Fibonacci introduced the Fibonacci sequence with number - theoretic implications. In the modern era, Fermat's theorems and conjectures, Euler's numerous contributions including the totient function, and Gauss's systematization in "Disquisitiones Arithmeticae" with concepts like congruences and quadratic reciprocity, significantly advanced the field. 
+
+In this note, we use $\mathbb{Z}$, $\mathbb{N}$ and $\mathbb{Z}_{\geq 0}$ to denote the set of integers, positive integers and non-zero integers, respectively. We also call positive integers natural numbers and non-negative integers whole numbers.
+
+\newpage
+
+\chapter{Greatest Common Divisor}
+
+\section{Exact Division}
+
+\begin{definition}[Exact Division]
+For $m, n\in\mathbb{Z}$ with $m\neq 0$, if there exists $q\in\mathbb{Z}$ such that $n=qm$, we say that $m$ divides $n$, denoted by $m\mid n$. Otherwise, we say that $m$ does not divide $n$, denoted by $m\nmid n$.
+\end{definition}
+
+\begin{example}
+    We have $3\mid 12$, $5\nmid 12$, and $m\mid 0$ for any $m\in\mathbb{Z}$ with $m\neq 0$.
+\end{example}
+
+\begin{proposition}[Mutual Divisibility Implies Equality]\label{prop:Mutual Divisibility Implies Equality}
+    If $m\mid n$ and $n\mid m$, then $m=\pm n$.
+\end{proposition}
+
+\begin{proof}
+    Since $m\mid n$ and $n\mid m$, then $n=km$ and $m=ln$ for some $k,l\in\mathbb{Z}$. Combining these two equations, we have $n=kln$, which implies $kl=1$. Since $k,l$ are integers, the only possibilities are $k=l=1$ and $k=l=-1$, which gives $m=\pm n$.\hfill$\square$
+\end{proof}
+
+\begin{proposition}[Transitivity of Divisibility]\label{prop:Transitivity of Divisibility}
+    If $d\mid m$ and $m\mid n$, then $d\mid n$.
+\end{proposition}
+
+\begin{example}
+    $3\mid 6$ and $6\mid 18$ imply $3\mid 18$.
+\end{example}
+
+\begin{proof}
+    Since $d\mid m$ and $m\mid n$, there exist $m^{\prime},n^{\prime}\in\mathbb{Z}$ such that $m=m^{\prime}d$ and $n=n^{\prime}m$. It follows that $n=(m^{\prime}n^{\prime})d.$ Note that $m^{\prime},n^{\prime}\in\mathbb{Z}$ implies $m^{\prime}n^{\prime}\in\mathbb{Z}$, then we obtain $d\mid n$.\hfill$\square$
+\end{proof}
+
+\begin{proposition}[Divisibility of Linear Combination]\label{prop:Divisibility of Linear Combination}
+If $d\mid m$ and $d\mid n$, then $d\mid am+bn$ for any $a,b\in{\mathbb{Z}}$.
+\end{proposition}
+
+\begin{example}
+    $3\mid 6$ and $3\mid 12$ imply $3\mid 84=4\cdot 6+5\cdot 12$.
+\end{example}
+
+
+\begin{proof}
+    Since $d\mid m$ and $d\mid n$, there exist $m^{\prime},n^{\prime}\in\mathbb{Z}$ such that $m=dm^{\prime}$ and $n=dn^{\prime}$. It follows that
+    $$
+    am+bn=a(dm^{\prime})+b(dn^{\prime})=(am^{\prime}+bn^{\prime})d.
+    $$
+    Note that $a,b,m^{\prime},n^{\prime}\in\mathbb{Z}$, then we also have $am^{\prime}+bn^{\prime}\in\mathbb{Z}$, which yields $d\mid am+bn$.\hfill$\square$
+\end{proof}
+
+\begin{proposition}[Bound of Divisors]\label{prop:Bound of Divisors}
+If $m\mid n$ and $n\neq 0$, then $|m|\leq |n|$.
+\end{proposition}
+
+\begin{proof}
+    Since $m\mid n$, there exists $q\in\mathbb{Z}$ such that $n=qm$. Note that $n\neq 0$, then we must have $q\neq 0$, which implies $|q|\geq 1$, since $q\in\mathbb{Z}$. It follows that $|n|=|qm|=|q|\cdot|m|\geq |m|$. \hfill$\square$
+\end{proof}
+
+\begin{remark}
+    The condition $n \neq 0$ is necessary; otherwise, the statement fails. For example, although $3 \mid 0$ holds, the inequality $3 \leq 0$ is false.
+\end{remark}
+
+\begin{corollary}[Divisibility with Restriction Forces Zero]\label{cor:Bounded Divisibility Forces Zero}
+    If $m\mid n$ and $|n|<|m|$, then $n=0$.
+\end{corollary}
+
+\begin{proof}
+    This is a contrapositive of Proposition \ref{prop:Bound of Divisors}. \hfill$\square$
+\end{proof}
+
+\begin{problem} $m,n\in\mathbb{Z}$ with $m\neq 0$,  how can we determine whether $m\mid n$ or not?
+\end{problem}
+
+\newpage
+\section{Division with remainder}
+
+\begin{theorem}[Division with remainder] \label{thm: Division with remainder}
+For $m,n\in\mathbb{Z}$ with $m\neq 0$, there exists a unique pair of integers $q$ and $r$ such that
+$$
+n=qm+r\quad {\rm{and}}\quad 0\leq r<|m|.
+$$
+Here $q=\lfloor n/m\rfloor$ is called the quotient, and $r$ is called the remainder.
+\end{theorem}
+
+
+\begin{example}
+     We have $12=4\cdot 3+0$ and $12=2\cdot 5+2$, which gives $3\mid 12$ and $5\nmid 12$, respectively.
+\end{example}
+
+
+\begin{proof}
+To show the existence, define
+$$
+S:=\{n-km:k\in\mathbb{Z}\}
+$$
+and consider the subset
+$$
+S_{\geq 0}:=S\cap\mathbb{Z}_{\geq 0}.
+$$
+Since $m \neq 0$, choose $k = \left\lfloor n/m \right\rfloor - 1$. then $n - km \geq 0$. Hence,  $S_{\geq 0}$ is non-empty. Let $r$ be the smallest element in $S_{\geq 0}$. Thus, $S_{\geq 0}$ has the smallest integer, say $r$. By definition, $r\geq 0$ and can be written as $r=n-qm$ for some $q\in\mathbb{Z}$.
+
+In addition, we must have $r<|m|$. To see this, suppose in contradiction that $r\geq |m|$, then $r-|m|\geq 0$. Note that
+$$
+r-|m|=n-qm-|m|=n-(q\pm 1)m,
+$$
+where the sign depends on the positivity of $m$. This implies $r-|m|\in S_{\geq 0}$, contradicting the minimality of $r$, forcing $r<|m|$. This completes the proof of existence.
+	
+For the uniqueness, suppose $n=qm+r= mq^{\prime}+r^{\prime}$ with $0\leq r,r^{\prime}<|m|$. Subtracting these equations yields $r-r^{\prime}=(q^{\prime}-q)m$, which gives $m\mid r-r^{\prime}$. Since $0\leq r,r^{\prime}<|m|$, the difference satisfies $-|m|<r-r^{\prime}<|m|$. This forces $r-r^{\prime}=0$, i.e. $r=r^{\prime}$. Then from $qm+r=q^{\prime}m+r^{\prime}$, we obtain $qm=q^{\prime}m$, which implies $q=q^{\prime}$, since $m\neq 0$. This completes the proof of uniqueness.\hfill$\square$
+\end{proof}
+
+\begin{exercise}[(Generalized Division with remainder)]\label{ex:Generalized Division with Remainder}
+    For $m,n\in\mathbb{Z}$ with $m\neq 0$, there exists a unique pair of integers $q$ and $r$ such that
+    $n=qm+r$, where $a\leq r<b$ and $b-a=|m|$.
+\end{exercise}
+
+\newpage
+\section{Greatest Common Divisor}
+
+\begin{definition}
+    If $d\mid n$, then $d$ is called a divisor of $n$.
+\end{definition}
+
+\begin{example}
+    The divisors of $6$ are $\pm 1,\pm 2,\pm 3$ and $\pm 6$.
+\end{example}
+
+\begin{definition}
+    For $m, n\in\mathbb{Z}$, if an integer $d$ satisfies $d\mid m$ and $d\mid n$, then $d$ is called a common divisor of $m$ and $n$.
+\end{definition}
+
+ \begin{example}
+     $2$ is a common divisor of $12$ and $18$, but $4$ is not.
+ \end{example}
+
+\begin{definition}
+    For $m, n\in\mathbb{Z}$, not both zero, the greatest common divisor of $m$ and $n$, denoted by $\gcd(m,n)$, is the largest positive common divisor of $m$ and $n$. 
+\end{definition}
+
+\begin{example}
+    We have $\gcd(12,18)=\max\{1,2,3,6\}=6$.
+\end{example}
+
+\begin{proposition}
+    \begin{itemize}
+    \item $\gcd(m,n)=\gcd(n,m)$.
+    \item If $m\mid n$, then $\gcd(m,n)=m$. In particular, $\gcd(m,0)=m$ for any $m\in\mathbb{Z}$ with $m\neq 0$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+    Leave to the reader.\hfill$\square$
+\end{proof}
+
+\begin{definition}
+    For $m,n\in\mathbb{Z}$, if $\gcd(m,n)=1$, then $m$ and $n$ are called coprime.
+\end{definition}
+
+\begin{example}
+    $6$ and $35$ are coprime, but $10$ and $35$ are not, since $\gcd(6,35)=1$, while $\gcd(10,35)=5$.
+\end{example}
+ 
+
+\begin{exercise}
+    Please compute $\gcd(18, 48)$.
+\end{exercise}
+
+\begin{problem}
+    For large integers $m$ and $n$, how can we efficiently compute $\gcd(m,n)$?
+\end{problem} 
+
+\newpage
+\section{B\'{e}zout's Identity}
+
+\begin{theorem}[B\'{e}zout's Identity]
+For $m,n\in{\mathbb{Z}}$, not both zero, there exist $a,b\in{\mathbb{Z}}$ such that $\gcd(m,n)=am+bn$.
+\end{theorem}
+
+\begin{example}
+     $\gcd(6,15)=3\cdot 6+(-1)\cdot 15$.
+\end{example}
+
+
+\begin{proof}
+Define the set
+$$
+S:=\{xm+yn:x,y\in\mathbb{Z}\}.
+$$
+We aim to $\gcd(m,n)$ is the the smallest positive integer in $S$.
+
+Consider the set $S\cap\mathbb{N}$. Since $m$ and $n$ are not both zero, without loss of generality, suppose $m\neq 0$. Then $1\cdot m+0\cdot n$ or $(-1)\cdot m+0\cdot n$ is in $S$, and one of these is positive. Thus, $S\cap\mathbb{N}$ is non-empty. Let $d$ be the smallest integer in $S\cap\mathbb{N}$. By definition of $S$, there exist $a,b\in\mathbb{Z}$ such that
+$$
+d=am+bn.
+$$
+Since $\gcd(m,n)$ divides both $m$ and $n$, by Proposition \ref{prop:Divisibility of Linear Combination}, we obtain $\gcd(m,n)\mid d$.
+
+Now we show $d\mid \gcd(m,n)$. By the division algorithm, there exist $q,r\in\mathbb{Z}$ such that
+$$
+m=qd+r\quad{\rm and}\quad 0\leq r<d.
+$$
+It follows that
+$$
+r=m-qd=(1-qa)m+(-qb)n\in S\cap\mathbb{N}
+$$
+This shows $r\in\mathbb{S}$. If $r>0$, then $r\in S\in\mathbb{N}$, contradicting the minimality of $d$. Hence, $r=0$, so $d\mid m$. A symmetric argument shows $d\mid n$. Thus, by Proposition \ref{prop:Characterization of GCD via Divisibility}, we have $d\mid \gcd(m,n)$.
+
+Since both $\gcd(m,n)$ and $d$ are positive, by Proposition \ref{prop:Mutual Divisibility Implies Equality}, we have $\gcd(m,n)=d=am+bn$. \hfill$\square$
+\end{proof}
+
+\begin{proposition}[Characterization of GCD via Divisibility]\label{prop:Characterization of GCD via Divisibility}
+    $d\mid \gcd(m,n)$ if and only if $d\mid m$ and $d\mid n$.
+\end{proposition}
+
+
+\begin{example}
+     $3\mid \gcd(30,42)$ is equivalent to $3\mid 30$ and $3\mid 42$.
+\end{example}
+
+
+\begin{proof}
+    We first prove the forward direction. Suppose $d\mid \gcd(m,n)$. Since $\gcd(m,n)$ divides both $m$ and $n$, by Proposition \ref{prop:Transitivity of Divisibility}, we have $d\mid m$ and $d\mid n$.
+
+    Now we prove the reverse direction. Suppose $d\mid m$ and $d\mid n$. By B\'{e}zout's identity, we have $\gcd(m,n)=am+bn$ for some $a,b\in\mathbb{Z}$. Then by Proposition \ref{prop:Divisibility of Linear Combination}, we have $d\mid \gcd(m,n)$. \hfill$\square$
+\end{proof}
+
+\begin{exercise}[(Coprime Preservation under Multiplication)]\label{Coprime Preservation under Multiplication}
+    If $\gcd(a,m)=1$ and $\gcd(b,m)=1$, then $\gcd(ab,m)=1$.
+\end{exercise}
+
+\begin{problem}
+    For $m,n\in{\mathbb{Z}}$, not both zero, how can we efficiently find integers $a,b$ such that $(m,n)=am+bn$?
+\end{problem}
+
+\newpage
+\section{Euclid's Algorithm}
+
+\begin{lemma}[GCD Preservation in the Division Algorithm]\label{lem:GCD Preservation in the Division Algorithm}
+For $a,b,c,q\in\mathbb{Z}$ with $b\neq 0$, if $a=qb+c$, then $\gcd(a,b)=\gcd(b,c)$.
+\end{lemma}
+
+
+\begin{example}
+    Since $1988=2\cdot 929+130$, it follows that $\gcd(1988,929)=\gcd(929,130)$.
+\end{example}
+ 
+
+\begin{proof}
+Since $\gcd(b,c)$ divides both $b$ and $c$, by Proposition \ref{prop:Divisibility of Linear Combination}, we have
+$$
+\gcd(b,c)\mid a=q\cdot b+1\cdot c.
+$$
+Thus, $\gcd(b,c)$ divides both $a$ and $b$. By Proposition \ref{prop:Characterization of GCD via Divisibility}, we have $\gcd(b,c)\mid \gcd(a,b)$.
+
+On the other hand,  since $\gcd(a,b)$ divides both $a$ and $b$, by Proposition \ref{prop:Divisibility of Linear Combination}, we have
+$$
+\gcd(a,b)\mid c=1\cdot a+(-q)\cdot b.
+$$
+Thus $\gcd(a,b)$ divides both $b$ and $c$. By Proposition \ref{prop:Characterization of GCD via Divisibility}, we have $\gcd(a,b)\mid \gcd(b,c)$.
+
+Combining the above two results, by Proposition \ref{prop:Mutual Divisibility Implies Equality} and the positivity of the greatest common divisor, we conclude that $\gcd(a,b)=\gcd(b,c)$.\hfill$\square$
+\end{proof}
+
+\begin{theorem}[Euclid's Algorithm]\label{thm:Euclid's Algorithm}
+For integers $0<r_1\leq r_0$, define quotients $q_{1}, q_{2},\cdots, q_{k}\in\mathbb{N}$ and remainders $r_{2},\cdots, r_{k+1}\in\mathbb{Z}_{\geq 0}$ by
+$$
+\begin{aligned}
+r_{0}&=r_{1}q_{1}+r_{2},\ &0&< r_{2}<r_{1}, \\
+r_{1}&=r_{2}q_{2}+r_{3},\ &0&< r_{3}<r_{2}, \\
+&\ \ \vdots \\
+r_{k-2}&=r_{k-1}q_{k-1}+r_{k},\ &0&< r_{k}<r_{k-1}, \\
+r_{k-1}&=r_{k}q_{k}+{r_{k+1}}, \ &\ &\ r_{k+1}=0.
+\end{aligned}
+$$
+Then we have $\gcd(r_0,r_1)=r_k.$
+\end{theorem}
+
+\begin{example}
+    Let $r_0=1988$ and $r_1=929$. Applying the Euclid's algorithm, we have 
+\begin{align*}
+ 1988&=929\cdot 2+130, \\
+ 929&=130\cdot 7+19, \\
+ 130&=19\cdot 6+16, \\
+ 19&=16\cdot 1+3, \\
+ 16&=3\cdot 5+1, \\
+ 3&=1\cdot 3+0.
+\end{align*}
+From this we conclude that
+$$
+\gcd(1988,929)=\gcd(929,130)=\gcd(130,19)=\gcd(19,16)=\gcd(16,3)=\gcd(3,1)=1.
+$$
+\end{example}
+
+\begin{proof}
+By Lemma \ref{lem:GCD Preservation in the Division Algorithm}, we obtain
+$$
+\gcd(r_0,r_1)=\gcd(r_1,r_2)=\cdots=\gcd(r_{k-1},r_k)=\gcd(r_k,0)=r_k,
+$$
+which is our desired result.\hfill$\square$
+\end{proof}
+
+\begin{exercise}
+    Please compute $\gcd(2017,823)$.
+\end{exercise}
+
+
+
+
+\section{Extended Euclid's Algorithm}
+\begin{theorem}[Extended Euclid's Algorithm]\label{thm:extended Euclid's Algorithm}
+For integers $0<r_1\leq r_0$, define the quotients $q_{1}, q_{2},\cdots, q_{k}\in\mathbb{N}$ and the remainders $r_{2},\cdots, r_{k+1}\in\mathbb{Z}_{\geq 0}$ as in Theorem \ref{thm:Euclid's Algorithm}. Additionally, define $s_0,\cdots,s_{k+1}$ and $t_0,\cdots,t_{k+1}$ by the following recurrence relations:
+\begin{align*}
+&s_0=1,\ s_1=0,\ s_{i+1}=s_{i-1}-s_iq_i\quad {\rm for}\quad i=1,\cdots,k,\\
+&t_0=0,\ t_1=1,\ t_{i+1}=t_{i-1}-t_iq_i\quad {\rm for}\quad i=1,\cdots,k.
+\end{align*}
+Then, for each $i=0,1,\cdots,k+1$, we have
+$$
+r_i=s_{i}r_0+t_{i}r_1.
+$$
+In particular, the greatest common divisor of $r_0$ and $r_1$ is given by
+$$
+\gcd(r_0,r_1)=r_k=s_kr_0+t_kr_1.
+$$
+\end{theorem}
+
+\begin{example}
+     For $r_0=1988$ and $r_1=929$, applying the extended Euclid's algorithm, we obtain
+\begin{center}
+\begin{tabular}{ll}
+	$s_0=1$, & $t_0=0$ \\
+	$s_1=0$, & $t_1=1$ \\
+	$s_2=1$, & $t_2=-2$ \\
+	$s_3=-7$, & $t_3=15$ \\
+	$s_4=43$, & $t_4=-92$ \\
+	$s_5=-50$, & $t_5=107$ \\
+	$s_6=293$, & $t_6=-627$ \\
+\end{tabular}
+\end{center}
+Then we have
+$$
+\gcd(1988,929)=293\times 1988+(-627)\times 929=1.
+$$
+\end{example}
+
+\begin{proof}
+Leave to the reader. \hfill$\square$
+\end{proof}
+
+\begin{exercise}
+    Find integers $a,b$ such that $\gcd(2019,414)=a\cdot 2019+b\cdot 414$.
+\end{exercise}
+
+\newpage
+
+
+
+\chapter{Prime Numbers}
+
+\section{Prime Numbers}
+
+\begin{definition}
+    An integer $p\geq 2$ is called a prime number (or simply a prime) if it has no positive divisors other than $1$ and itself. In contrast, if an integer $n\geq 2$ has divisors other than $1$ and itself, then $n$ is called a composite number. 
+\end{definition}
+
+
+\begin{example}
+    $19$ is a prime number, while $39$ is a composite number. The integer $1$ is neither a prime number nor a composite number.
+\end{example}
+    
+
+
+
+\begin{exercise}[(Equivalence of Prime Non-Divisibility and Coprimality)]\label{ex:Equivalence of Prime Non-Divisibility and Coprimality}
+    Let $p$ be a prime number and $n$ be an non-zero integer, then $p\nmid n$ if and only if $\gcd(p,n)=1$.
+\end{exercise}
+
+\begin{problem}
+    How can we efficiently determine whether a large positive integer is a prime number?
+\end{problem}
+
+
+
+\begin{proposition}[Existence of Prime Divisors]\label{prop:Existence of Prime Divisors}
+Every integer $n\geq 2$ must have a prime divisor.
+\end{proposition}
+
+\begin{example}
+    $35$ has a prime divisor $5$.
+\end{example}
+ 
+ 
+ 
+
+\begin{proof}
+If $n$ is a prime number, the statement holds trivially. Now suppose $n$ is composite. Let $p$ be its smallest divisor with $p>1$, then $1<p<n$. Assume for contradiction that $p$ is not a prime number. Then exists an integer $d$ such that $d\mid p$ and $1<d<p$. Since $p\mid n$, it follows that $d\mid n$. This contradicts the minimality of $p$ as the smallest divisor of $n$ greater than $1$. Therefore, $p$ must be a prime number. \hfill$\square$
+\end{proof}
+
+\begin{corollary}[Prime Divisor Bound for Composites]\label{cor:Prime Divisor Bound for Composites}
+A composite number $n\geq 2$ must have a prime divisor $p$ with $p\leq\sqrt{n}$.
+\end{corollary}
+
+\begin{proof}
+    Let $p$ be the smallest prime divisor of $n$, then we have $1<p<n$. Thus $n/p>1$ is also a divisor of $n$. By the minimality of $p$, we have $p\leq n/p$, which yields $p\leq \sqrt{n}$. \hfill$\square$
+\end{proof}
+
+\begin{note}
+    To determine whether an integer $n\geq 2$ is a prime number, it suffices to check the divisibility by all prime numbers $p$ satisfying $2\leq p\leq \sqrt{n}$.  If $n$ is divisible by such a prime number, then $n$ is a composite number; otherwise, $n$ is a prime. Let's take $37$ as an example. Note that $\sqrt{37}=6.082\dots$, then all prime numbers less than or equal to $\sqrt{37}$ are $2,3,5$. It is easy to check that none of these prime numbers divides $37$. Hence $37$ is a prime number.
+\end{note}
+
+
+\begin{exercise}
+    Determine whether $2017$ is a prime or not.
+\end{exercise}
+
+\begin{corollary}[Uniqueness of $1$ in Prime Divisibility]\label{cor:Uniqueness of 1 in Prime Divisibility}
+    If $n\in\mathbb{N}$ cannot be divided by any prime number, then $n=1$.
+\end{corollary}
+
+\begin{proof}
+    This is a contrapositive of Proposition \ref{prop:Existence of Prime Divisors}. \hfill$\square$
+\end{proof}
+
+\begin{problem}
+    How many prime numbers are there in $\mathbb{N}$?
+\end{problem}
+
+\section{Prime Number Theorem}
+
+\begin{lemma}[Euclid's Lemma]\label{lem:Euclid's Lemma}
+For a prime number $p$, if $p\mid mn$ with $m,n\in\mathbb{Z}$, then $p\mid m$ or $p\mid n$.
+\end{lemma}
+
+\begin{example}
+    Since $3$ is a prime number and $3$ divides $45 = 5 \cdot 9$, then $3$ must divide either $5$ or $9$. In fact, $3\mid 9$.
+\end{example} 
+
+\begin{proof}
+If $p\mid m$, the result is immediate. Suppose $p\nmid m$. By Exercise \ref{ex:Equivalence of Prime Non-Divisibility and Coprimality}, we have $\gcd(p,m)=1$. By B\'{e}zout's Identity, there exists integers $a,b\in\mathbb{Z}$ such that $ap+bm=1$. It follows that
+$$
+n=1\cdot n=(ap+bm)n=(an)p+b(mn).
+$$
+Since $p$ divides both $p$ and $mn$, by Proposition \ref{prop:Divisibility of Linear Combination}, we obtain $p\mid n$. \hfill$\square$
+\end{proof}
+
+\begin{exercise}[(Generalized Euclid's Lemma)]\label{ex:Generalized Euclid's Lemma}
+    Show that if $a\mid mn$ and $\gcd(a,m)=1$, then $a\mid n$.
+\end{exercise}
+
+\begin{exercise}[(Coprimality of Product)]\label{ex:Coprimality of Product}
+    Show that if $\gcd(m,a)=\gcd(n,a)=1$, then $\gcd(mn,a)=1$.
+\end{exercise}
+
+\begin{theorem}[Euclid's Theorem]\label{thm:Euclid's Theorem}
+There are infinitely many prime numbers.
+\end{theorem}
+
+\begin{proof}
+Assume that there are only finitely many prime numbers, listed as $p_1,p_2,\dots,p_k$. Consider the integer
+$$
+n:= p_1p_2\cdots p_k + 1.
+$$
+Observe that $n$ leaves a remainder of $1$ when divided by each prime $p_i$. Then $n$ cannot be divided by any prime number. By Corollary \ref{cor:Uniqueness of 1 in Prime Divisibility}, we derive $n=1$, which is impossible. Hence, our initial assumption is false. There are infinitely many prime numbers. \hfill$\square$
+\end{proof}
+
+\begin{exercise}
+    Show that there are infinitely many prime numbers in the arithmetic progression $3n+2$, $n=1,2,\dots$.
+\end{exercise}
+
+\begin{note}
+    For $x\geq 2$, Let $\pi(x)$ denote the number of prime numbers less than or equal to $x$. For example, $\pi(10)=4$, since the prime numbers less than or equal to $10$ are $2, 3, 5, 7$. Then Theorem \ref{thm:Euclid's Theorem} can be formulated as
+$$
+\pi(x)\rightarrow+\infty\quad {\rm as}\quad x\rightarrow+\infty.
+$$
+In the late $18$th century, Gauss and Legendre independently made a more precise conjecture about the asymptotic formula of $\pi(x)$. This landmark result is now known as the prime number theorem. In 1896, Hadamard and de la Vall\'{e}e Poussin proved the prime number theorem independently, building on foundational work in complex analysis.
+\end{note}
+
+\begin{theorem}[Prime Number Theorem]
+    We have
+    $$
+    \pi(x)\sim \frac{x}{\log x}\quad{\rm as}\quad x\rightarrow +\infty.
+    $$    
+\end{theorem}
+
+\begin{problem}
+     Are there infinitely many primes in the arithmetic progression $qn+a$, $n=1,2,\dots$ for any coprime $q,a\in\mathbb{N}$? 
+\end{problem}
+
+ 
+ 
+ \section{Fundamental Theorem of Arithmetic}
+
+\begin{theorem}[Fundamental Theorem of Arithmetic]
+Any integer $n\geq 2$ can be expressed uniquely (up to ordering) as a product of prime numbers:
+$$
+n=p_1p_2\cdots p_k,
+$$
+where each $p_i$ $(i=1,2,\dots,k)$ is a prime number.
+\end{theorem}
+
+\begin{proof}
+    We first prove the existence. We proceed by induction on $n$. The base case $n=2$ holds trivially as $2$ is a prime number. Assume $n>2$ and that all integers $m$ with $2\leq m<n$ can be expressed as a product of prime numbers. If $n$ is a prime number, the existence follows immediately. If $n$ is a composite number, by Proposition \ref{prop:Existence of Prime Divisors}, there exists a prime $p\geq 2$ such that $n=pn^{\prime}$ with $n^{\prime}<n$. By the induction hypothesis, $n^{\prime}$ has a prime factorization, hence $n=pn^{\prime}$ does as well.
+
+    Now we prove the uniqueness. We proceed by induction on $n$ again. The base case $n=2$ is trivial. Assume $n>2$ and uniqueness holds for all integers less than $n$. Suppose 
+    $$
+    n=p_1p_2\cdots p_k=q_1q_2\cdots q_l,
+    $$
+    where each $p_i$ and $q_j$ is a prime number.
+    
+    Since $p_1$ is a prime number and $p_1\mid q_1q_2\cdots q_l$, by Lemma \ref{lem:Euclid's Lemma}, $p_1$ must divide some $q_j$. As $q_j$ is also a prime number, we have $q_1=q_j$.  Without loss of generality, we may reorder $q_1,q_2,\dots,q_l$ so that $p_1=q_1$. Let
+    $$
+    n^{\prime}:=n/p_1=n/q_1.
+    $$
+    Dividing both sides by $p_1=q_1$, we obtain
+    $$
+    n^{\prime}=p_2p_3\cdots p_k = q_2q_3\cdots q_l.
+    $$
+    Note that $n^{\prime}<n$. Then by the induction hypothesis, we derive $k-1=l-1$, i.e. $k=l$, and $p_2,p_3,\dots,p_k$ is a permutation of $q_2,q_3 \dots,q_l$. This completes the proof of uniqueness. \hfill$\square$.
+\end{proof}
+
+\begin{note}
+    By the Fundamental Theorem of Arithmetic, every integer $n\geq 2$ can be uniquely expressed (up to the order of primes) as
+$$
+n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k},
+$$
+where $p_1, p_2,\dots,p_k$ are distinct prime numbers, and each exponent $e_i\in\mathbb{N}$. For example, $60=2^1\cdot 3^1\cdot 5^1$ and $72=2^3\cdot 3^2$.
+\end{note}
+
+
+\begin{exercise}
+Decompose $2019$ into prime factors.
+\end{exercise}
+
+\begin{exercise}\label{exe:square equals square times square}
+\hspace{-0.3cm} Suppose $n^2=uv$ with $n,u,v\in\mathbb{N}$ and $\gcd(u,v)=1$. Show that there exist $a,b\in\mathbb{N}$ with $\gcd(a,b)=1$ such that $u=a^2$ and $v=b^2$.
+\end{exercise}
+
+\newpage
+\section{$p$-adic Valuation}
+
+\begin{definition}
+    Let $p$ be a prime. For any non-zero integer $n$, the $p$-adic valuation of $n$ at $p$, denoted by $v_p(n)$, is defined as the largest integer $k$ such that $p^k\mid n$.
+\end{definition}
+
+\begin{example}
+    $v_2(72)=v_2(2^3\cdot 9)=3$, $v_3(72)=v_3(3^2\cdot 8)=2$, and $v_p(1)=0$ for every prime number $p$.
+\end{example}
+
+\begin{note}
+    According to the Fundamental Theorem of Arithmetic, any $n\in\mathbb{N}$ can be uniquely written as
+$$
+n=\prod\limits_{p} p^{v_{p}(n)},
+$$
+where the product takes over all prime numbers, and all but finitely many $v_p(n)$ are zero.
+\end{note}
+
+\begin{proposition}[Additivity of $p$-adic Valuation]\label{prop:Additivity of p-adic Valuation}
+Let $p$ be a prime, then for any $m,n\in\mathbb{N}$, we have
+$$
+v_{p}(mn)=v_{p}(m)+v_{p}(n).
+$$
+\end{proposition}
+
+\begin{example}
+    We have $v_2(4\cdot 18)=v_2(72)=3$ and $v_2(4)+v_2(18)=2+1=3$.
+\end{example}
+
+
+\begin{proof}
+    Suppose $m=p^{v_p(m)}m^{\prime}$ and $n=p^{v_p(n)}n^{\prime}$, where $p\nmid m^{\prime}$ and $p\nmid n^{\prime}$. Observe that
+    $$
+    mn=(p^{v_p(m)}m^{\prime})(p^{v_p(n)}n^{\prime})=p^{v_p(m)+v_p(n)}m^{\prime}n^{\prime}
+    $$
+    and $p\nmid m^{\prime}n^{\prime}$. Then by the definition of the $p$-adic valuation, we have $v_p(mn)=v_p(m)+v_p(n)$.\hfill$\square$
+\end{proof}
+
+\begin{proposition}[Ultrametric Inequality]\label{prop:Ultrametric Inequality}
+Let $p$ be a prime, then for any $m,n\in\mathbb{N}$, we have
+$$
+v_{p}(m+n)\geq \min\big(v_{p}(m), v_{p}(n)\big),
+$$ with equality if $v_{p}(m)\neq v_{p}(n)$.
+\end{proposition}
+
+
+ \begin{example}
+     We have $v_3(15+21)=2$, which is larger than $\min\big(v_3(15),v_3(21)\big)=\min(1,1)=1$, and $v_3(15+36)=v_3(51)=1$，which is equal to $\min\big(v_3(15),v_3(36)\big)=\min\big(1,2\big)=1$.
+ \end{example}
+ 
+
+\begin{proof}
+    Without loss of generality, we suppose $v_p(m)\leq v_p(n)$. Write
+    $m=p^{v_p(m)}m^{\prime}$ and $n=p^{v_p(n)}n^{\prime}$, where $p\nmid m^{\prime}$ and $p\nmid n^{\prime}$.
+    We have
+    $$
+    m+n=p^{v_p(m)}m^{\prime}+p^{v_p(n)}n^{\prime}=p^{v_p(m)}(p^{v_p(n)-v_p(m)}m^{\prime}+n^{\prime}).
+    $$
+    Since $v_p(m)\leq v_p(n)$, it follows that $p^{v_p(n)-v_p(m)}m^{\prime}+n^{\prime}$ is an integer. By the definition of $p$-adic valuation, we have
+    $$
+    v_p(m+n)\geq v_p(m)=\min\big(v_{p}(m), v_{p}(n)\big),
+    $$
+    which is our desired result.
+
+    If $v_{p}(m)\neq v_{p}(n)$, without loss of generality, we suppose $v_p(m)<v_p(n)$. Write
+    $m=p^{v_p(m)}m^{\prime}$ and $n=p^{v_p(n)}n^{\prime}$, where $p\nmid m^{\prime}$ and $p\nmid n^{\prime}$.
+    We have
+    $$
+    m+n=p^{v_p(m)}m^{\prime}+p^{v_p(n)}n^{\prime}=p^{v_p(m)}(p^{v_p(n)-v_p(m)}m^{\prime}+n^{\prime}).
+    $$
+    Since $v_p(m)<v_p(n)$, then we have $v_p(n)-v_p(m)\geq 1$, which yields $p\mid p^{v_p(m)}-p^{v_p(n)}m^{\prime}$. Note that $p\nmid n^{\prime}$, then we must have $p\nmid p^{v_p(m)-v_p(n)}m^{\prime}+n^{\prime}$. This indicates that
+    $$
+    v_p(m+n)=v_p(m)=\min(v_p(m),v_p(n)).
+    $$
+    This completes the proof.\hfill$\square$
+\end{proof}
+
+\begin{exercise}[(Legendre's Formula)]\label{ex:Legendre's Formula} Let $n\in\mathbb{N}$ and $p$ be a prime. Show that
+$$
+v_{p}(n!)=\sum\limits_{k=1}^{\infty}\Big[\frac{n}{p^k}\Big],
+$$
+where $[x]$ with $x\in\mathbb{R}$ denotes the largest integer less than or equal to $x$.
+\end{exercise}
+
+\newpage
+
+\chapter{Congruences}
+
+\section{Congruences}
+\begin{definition}
+    Let $a,b\in\mathbb{Z}$ and $m$ be a non-zero integer. If there exists $k\in\mathbb{Z}$ such that $a=b+km$, then we say $a$ and $b$ are congruent (or $a$ is congruent to $b$) modulo $m$, denoted by $a\equiv b \pmod m$. Here, $m$ is called the modulus of the congruence.
+\end{definition}
+
+\begin{example}
+    $17\equiv 11 \pmod 3$, since $17=11+3\cdot 2$. But $17\not\equiv 11 \pmod 4$, since we cannot find an integer $k$ such that $17=11+k\cdot 4$.
+\end{example}
+ 
+
+\begin{proposition}[Modulus Scaling Property]\label{Modulus Scaling Property}
+    Let $k$ be a non-zero integer, then $ka\equiv kb\pmod{km}$ if and only if $a\equiv b\pmod{m}$.
+\end{proposition}
+
+\begin{example}
+    $9\equiv 24\pmod{15}$ is equivalent to $3\equiv 8\pmod{5}$.
+\end{example}
+
+\begin{proof}
+    Note that $a \equiv b \pmod{m}$ if and only if there exists an integer $l \in \mathbb{Z}$ such that $a - b = lm$. This is equivalent to the statement that there exists an integer $l \in \mathbb{Z}$ such that $ka - kb = klm$, since $k$ is a non-zero integer. By the definition of congruence, this statement is equivalent to $ka \equiv kb \pmod{km}$.\hfill$\square$
+\end{proof}
+
+ \begin{proposition}[Fundamental Congruence Criterion]\label{prop:Fundamental Congruence Criterion}
+     For a non-zero integer $m$, we have $a\equiv b \pmod m$ if and only if $m\mid a-b$.
+ \end{proposition}
+
+\begin{example}
+     $17\equiv 11 \pmod 3$, since $2\mid 6=17-11$. But $17\not\equiv 11 \pmod 4$, since $4\nmid 6=17-11$.
+\end{example}
+
+ \begin{proof}
+     This follows immediately from the definitions of congruence and exact division.
+ \end{proof}
+
+\begin{exercise}[(Congruence Induced by Divisibility)]\label{ex:Congruence Induced by Divisibility}
+    Show that if $a\equiv b\pmod{m}$ and $d\mid m$, then we have $a\equiv b\pmod{d}$. \hfill$\square$
+\end{exercise}
+ 
+
+
+
+\begin{proposition}[Congruence Modulo $m$ as an Equivalence Relation]\label{prop:Congruence Modulo m as an Equivalence Relation}
+Let $m$ be a non-zero integer. For any $a,b,c\in\mathbb{Z}$, the following properties hold:
+\begin{itemize}
+\item[{\rm{(1)}}] Reflexivity: $ a \equiv a \pmod{m}$.
+\item[{\rm{(2)}}] Symmetry: If $a \equiv b \pmod{m}$, then $b \equiv a \pmod{m}$.
+\item[{\rm{(3)}}] Transitivity: If $a \equiv b \pmod{m}$ and $b \equiv c \pmod{m}$, then $a \equiv c \pmod{m}$.
+\end{itemize}
+\end{proposition}
+
+\begin{example}
+    $3\equiv 10 \pmod{7}$ and $10\equiv 24 \pmod{7}$ imply $3\equiv 24 \pmod{7}$.
+\end{example}
+
+\begin{proof}
+The reflexivity follows from $m\mid a-a=0$. The symmetry follows from the fact that $m\mid a-b$ implies $m\mid (-1)(a-b)=b-a$. For the transitivity, since $a \equiv b \pmod{m}$ and $b \equiv c \pmod{m}$, we have $m\mid a-b$ and $m\mid b-c$. Then by Proposition \ref{prop:Divisibility of Linear Combination}, we conclude that $m\mid (a-b)+(b-c)=a-c$. This implies $a\equiv c\pmod{m}$. \hfill$\square$
+\end{proof}
+
+\begin{proposition}[Congruence Preservation under Addition and Multiplication]\label{prop:Congruence Preservation under Addition and Multiplication}
+Let $m$ be a non-zero integer. We have the following statements:
+\begin{itemize}
+\item If $a_1\equiv b_1 \pmod{m}$ and $a_2\equiv b_2 \pmod{m}$, then $a_1+a_2\equiv b_1+b_2 \pmod{m}$.
+
+\item If $a_1\equiv b_1 \pmod{m}$ and $a_2\equiv b_2 \pmod{m}$, then $a_1a_2\equiv b_1b_2 \pmod{m}$.
+\end{itemize}
+\end{proposition}
+
+\begin{example}
+    We have
+\begin{itemize}
+    \item $3\equiv 8\pmod{5}$ and $13\equiv 18\pmod{5}$ implies $3+13\equiv 8+18 \pmod{5}$, that is $16\equiv 26 \pmod{5}$.
+    \item $3\equiv 7 \pmod{4}$ and $2\equiv 6 \pmod{4}$ imply $2\cdot 3\equiv 6\cdot 7 \pmod{4}$, that is $6\equiv 42\pmod{4}$.
+\end{itemize}
+\end{example}
+
+\begin{proof}
+    The proof is left to the reader as an exercise. \hfill$\square$
+\end{proof}
+
+\begin{corollary}[Congruence Preservation under Scaling and Exponentiation]\label{cor:Congruence Preservation under Scaling and Exponentiation}
+Let $m$ be a non-zero integer. We have the following statements:
+\begin{itemize}
+\item[{\rm(i)}] If $a\equiv b \pmod{m}$, then $ka\equiv kb \pmod{m}$ for any $k\in\mathbb{Z}$.
+
+\item[\rm{(ii)}] If $a\equiv b \pmod{m}$, then $a^l\equiv b^l \pmod{m}$ for any $l\in\mathbb{N}$.
+\end{itemize}
+\end{corollary}
+
+\begin{example}
+    If $a\equiv 2\pmod{5}$, then we have
+$$
+7a^4+8\equiv 7a^4+3\equiv 2a^4+3\equiv 2\cdot 2^4+3\equiv 2\cdot 16+3\equiv 2\cdot 1+3\equiv 0 \pmod{5}.
+$$
+\end{example}
+
+\begin{exercise}[(Polynomial Congruence Preservation)]\label{ex:Polynomial Congruence Preservation}
+    Let $f(x)$ be a polynomial with coefficients being integers. Show that if $a\equiv b\pmod{m}$, then $f(a)\equiv f(b)\pmod {m}$.
+\end{exercise}
+
+For $a,m\in\mathbb{Z}$ with $m\neq 0$, if there exists $b\in\mathbb{Z}$ such that $ab\equiv 1 \pmod{m}$, then we say that $a$ is invertible modulo $m$ and $b$ is an inverse of $a$ modulo $m$.
+
+\begin{example}
+     $6$ is invertible modulo $11$, since $6\cdot 2\equiv 1\pmod{11}$. Moreover, $2$ is the inverse of $6$ modulo $11$.
+\end{example}
+
+\begin{proposition}[Invertibility Criterion modulo $m$] \label{prop:Invertibility Criterion modulo m}
+Let $a,m\in\mathbb{Z}$ with $m\neq 0$. Then $a$ is invertible modulo $m$ if and only if $\gcd(a,m)=1$.
+\end{proposition}
+
+\begin{example}
+    $6$ is invertible modulo $11$, since $\gcd(6,11)=1$, while $6$ is not invertible modulo $15$, since $\gcd(6,15)=3\neq 1$.
+\end{example}
+
+\begin{proof}
+    We first prove the forward direction. Suppose $a$ is invertible modulo $m$. Then there exists $b\in\mathbb{Z}$ such that $ab\equiv 1\pmod{m}$. Then there exists $k\in\mathbb{Z}$ such that $ab=1+km$. Since $\gcd(a,m)$ divides both $a$ and $m$, then $\gcd(a,m)\mid ab-km=1$, which implies $\gcd(a,m)=1$.
+
+    Now we prove the reverse direction. Suppose $\gcd(a,m)=1$. Then by B\'{e}zout's identity, there exists integers $k,l\in\mathbb{Z}$ such that $\gcd(m,n)=ka+lm=1$. Thus, $ka=1+(-l)m$, which yields $ka\equiv 1\pmod{m}$. Hence, $a$ is invertible modulo $m$. \hfill$\square$ 
+\end{proof}
+
+\begin{corollary}[Cancellation Law for Congruence]\label{cor:Cancellation Law for Congruence}
+    If $ka\equiv kb\pmod{m}$ and $\gcd(k,m)=1$, then $a\equiv b\pmod{m}$.
+\end{corollary}
+
+\begin{example}
+    $5\cdot 7\equiv 5\cdot 13\pmod{6}$ implies $7\equiv 13\pmod{6}$, since $\gcd(5,6)=1$.
+\end{example}
+
+\begin{proof}
+    Since $\gcd(k,m)=1$, there exist $l\in\mathbb{Z}$ such that $kl\equiv 1\pmod{m}$. By $ka\equiv kb\pmod{m}$, we have $lka\equiv lkb\pmod{m}$, which yields $a\equiv b\pmod{m}$ by (ii) of Proposition \ref{prop:Congruence Preservation under Addition and Multiplication}. \hfill$\square$
+\end{proof}
+
+\begin{exercise}
+Show that the equation $x^2+y^2-15z^2=7$ has no integer solutions. Hint: consider both sides modulo $8$.
+\end{exercise}
+
+
+
+
+\section{Wilson's Theorem}
+
+\begin{theorem}[Wilson's Theorem]
+	A positive integer $n>1$ is a prime if and only if $(n-1)!+1\equiv 0 \pmod{n}$.
+\end{theorem}
+
+\begin{example}
+     $(7-1)! + 1 = 721 \equiv 0 \pmod{7}$, because $7$ is a prime number. On the other hand, $(6-1)! + 1 = 121 \not\equiv 0 \pmod{6}$ since $6$ is a composite number.
+\end{example}
+
+\begin{proof}
+	First, suppose $(n-1)! \equiv -1 \pmod{n}$ for some integer $n > 1$. Assume $n$ is a composite number. Then there exists a prime number $p$ with $2 \leq p \leq n-1$ such that $p \mid n$. Since $p \leq n-1$, $p\mid (n-1)!$, implying $(n-1)! \equiv 0 \pmod{p}$. However, from $(n-1)! \equiv -1 \pmod{n}$, by Exercise \ref{ex:Congruence Induced by Divisibility}, we have $(n-1)! \equiv -1 \pmod{p}$. This contradiction forces $n$ to be a prime number. 
+	
+	 Conversely, let $p$ be a prime number. If $p = 2$, then $(2-1)! = 1 \equiv -1 \pmod{2}$. For odd $p$, observe that each $a \in \{1, 2, \dots, p-1\}$ has a unique multiplicative inverse $a^{-1} \in \{1, 2, \dots, p-1\}$ satisfying $aa^{-1} \equiv 1 \pmod{p}$. If $a\equiv a^{-1}\pmod{p}$, then $p\mid (a-1)(a+1)$, which implies $a\equiv 1\pmod{p}$ or $a\equiv p-1\pmod{p}$. Thus for $a = 2, 3, \dots, p-2$, we have $a \neq a^{-1}$. These numbers can be paired into $(p-3)/2$ pairs such that each pair's product is congruent to $1$ modulo $p$. Multiplying all terms together, we obtain
+	$$
+	(p-1)!\equiv 1\cdot(p-1)\equiv -1 \pmod{p},
+	$$
+    which is our desired result.
+    \hfill$\square$
+\end{proof}
+
+\newpage
+\section{Euler's Theorem}
+
+\begin{definition}
+    For $n\in\mathbb{N}$, Euler’s function $\varphi(n)$ counts the number of integers that are coprime to $n$ in the set $\{1,2,\dots,n\}$. 
+\end{definition}
+
+\begin{example}
+    All the integers that are coprime to $12$ in $\{1,2,\dots,12\}$ are $\{1,5,7,11\}$, so $\varphi(12)=4$.
+\end{example}
+
+\begin{theorem}[Euler's Theorem]\label{thm:Euler's Theorem}
+If $a,m\in\mathbb{N}$ are coprime, then $a^{\varphi(m)}\equiv 1 \pmod{m}$.
+\end{theorem}
+
+\begin{example}
+    We have $5^{\varphi(12)}=5^4=625\equiv 1 \pmod{12}$.
+\end{example}
+
+\begin{proof}
+The case $m=1$ is trivial. Now suppose $m\geq 2$. Let 
+$$
+R:=\{r_1, r_2, \dots, r_{\varphi(m)}\}
+$$ 
+be the set of integers in $\{1, 2, \dots, m\}$ that are coprime to $m$. Since $\gcd(m, m) = m \geq 2$, we have $m \notin R$, hence $1 \leq r_i < m$ for all $i$.
+
+Define the scaled set
+$$
+aR:=\{ar_1,ar_2,\cdots,ar_{\varphi(m)}\}.
+$$
+Since both $a$ and $r_i$ are coprime to $m$, by Exercise \ref{Coprime Preservation under Multiplication}, each $ar_i$ remains coprime to $m$. For each $i$, let $r_i'$ be the remainder given by $
+ar_i=qm+r_i^{\prime}$ with $0\leq r_i^{\prime}<m
+$, and define
+$$
+R^{\prime}=\{r_1^{\prime},r_2^{\prime},\dots,r_{\varphi(m)}^{\prime}\}.
+$$
+
+\emph{Claim:} $R'= R$ as sets (up to reordering).
+
+First, we show $R' \subset R$. Let $r_i^{\prime}$ be any element of $R^{\prime}$. By Lemma \ref{lem:GCD Preservation in the Division Algorithm}, the equality $
+ar_i=qm+r_i^{\prime}$ implies $\gcd(r_i', m) = \gcd(ar_i, m) = 1$. It follows that $r_i^{\prime}\neq 0$, and then $1\leq r_i^{\prime}<m$. Thus, $r_i^{\prime} \in R$, which implies $R^{\prime}\subset R$.
+
+Next, we prove $|R^{\prime}|=|R|$ by showing all the $r_i^{\prime}$s are distinct. To this aim, assume for contradiction that $r_i^{\prime}= r_j^{\prime}$ for some $i \neq j$. Then $ar_i=q_1m + r_i^{\prime}$ and $ar_j=q_2m + r_j^{\prime}$ imply $ar_i \equiv ar_j \pmod{m}$. Since $\gcd(a,m)=1$, by Corollary \ref{cor:Cancellation Law for Congruence}, we have $r_i\equiv r_j\pmod{m}$. As $0\leq r_i^{\prime},r_j^{\prime}<m$, we have $-m<r_i-r_j<m$, which forces $r_i-r_j=0$, i.e. $r_i=r_j$. This contradicts the distinctness of the $r_i$s. Thus, the assumption is false, and the $r_i^{\prime}s$ are distinct. Thus, $|R^{\prime}|=|R|=\varphi(m)$.
+
+Combining the above two results, we conclude that $R^{\prime}=R$.
+
+Now we prove the statement of the theorem. By definition of the $r_i^{\prime}$s, we have $ar_i\equiv r_i^{\prime}\pmod{m}$ for $i=1,2,\dots,\varphi(m)$. It follows that
+$$
+(ar_1)(ar_2)\cdots(ar_{\varphi(m)}) \equiv r_1^{\prime}r_2^{\prime}\cdots r_{\varphi(m)}^{\prime}\pmod{m}.
+$$
+The left side of the congruence
+$$
+(ar_1)(ar_2)\cdots(ar_{\varphi(m)})=a^{\varphi(m)}r_1r_2\cdots r_{\varphi(m)}.
+$$
+Since $R^{\prime}=R$, the right side of the congruence
+$$
+r_1^{\prime}r_2^{\prime}\cdots r_{\varphi(m)}^{\prime}=r_1r_2\cdots r_{\varphi(m)}.
+$$
+Thus we have
+$$
+a^{\varphi(m)}r_1r_2\cdots r_{\varphi(m)}\equiv r_1r_2\cdots r_{\varphi(m)}\pmod{m}.
+$$
+Since each $r_i$ is coprime to $m$, by Corollary \ref{Coprime Preservation under Multiplication}, the product $r_1r_2\cdots r_{\varphi(m)}$ is also coprime to $m$. Then by Corollary \ref{cor:Cancellation Law for Congruence}, we obtain
+$$
+a^{\varphi(m)} \equiv 1 \pmod{m},
+$$
+which is our desired result.\hfill$\square$
+\end{proof}
+
+\begin{corollary}[Fermat's Little Theorem]
+Let $p$ be a prime number. For any integer $a$ with $p\nmid a$, we have
+$$
+a^{p-1}\equiv 1 \pmod{p}.
+$$
+\end{corollary}
+
+\begin{proof}
+This follows from Euler's theorem and the fact that $\varphi(p)=p-1$ for any prime number $p$.\hfill$\square$
+\end{proof}
+
+\begin{exercise}
+Compute $11^{2025}\pmod{20}$.
+\end{exercise}
+
+\chapter{Linear Congruence Equation}
+
+\section{Algebraic Congruence Equation}
+
+\begin{definition}
+    Given a non-zero integer $m\in\mathbb{N}$, let $f(x)\in\mathbb{Z}[x]$ be a polynomial with leading coefficient not divided by $m$. Consider the algebraic congruence equation
+$$
+f(x)\equiv 0 \pmod{m}.
+$$
+From Exercise \ref{ex:Polynomial Congruence Preservation}, we can infer that if $f(a)\equiv 0\pmod{m}$, then $f(b)\equiv 0\pmod{m}$ for every $b\equiv a\pmod{m}$. Thus, we can consider the entire congruence class modulo $m$ containing $a$ as a single solution to $f(x)\equiv 0\pmod{m}$, denoted by $x\equiv a \pmod{m}$.
+\end{definition}
+
+\begin{example}
+    For example,
+$$
+2x^2+3x+4\equiv 0 \pmod{9}
+$$
+has two solutions $x\equiv 1 \pmod{9}$ and $x\equiv 2\pmod{9}$, while
+$$
+2x^2+3x+4\equiv 0 \pmod{5}
+$$
+has no solutions. It is clear that an algebraic congruence $f(x)\equiv 0\pmod{m}$ has at most $m$ solutions. 
+\end{example}
+
+\begin{problem}
+    For an algebraic congruence equation, we typically hope to answer the following three fundamental questions:
+\begin{itemize}
+\item Does it have solutions?
+\item If it has solutions, how many solutions does it have?
+\item Can we find all of its solutions?
+\end{itemize}
+\end{problem}
+
+
+
+
+
+
+\newpage
+\section{Linear Congruence Equation}
+
+\begin{proposition}[Linear Congruence Equation]\label{prop:Linear Congruence Equation}
+The congruence equation
+\begin{align}\label{eq:linear congruence}
+ax\equiv b \pmod{m}
+\end{align}
+has solutions if and only if $\gcd(a, m)\mid b$. If this condition is satisfied, let $d:=\gcd(a,m)$ and define $a_0,b_0,m_0$ by $a=da_0$, $b=db_0$ and $m=dm_0$, then \eqref{eq:linear congruence} has $d$ solutions：
+ $$
+ x\equiv a_0^{-1}b_0+km_0\pmod{m},\quad k=0,1,2,\cdots,d-1,
+ $$
+ where $a_0^{-1}\in\mathbb{Z}$ satisfies $a_0a_0^{-1}\equiv 1 \pmod{m_0}$.
+\end{proposition}
+
+\begin{example}
+     $6x\equiv 9 \pmod{21}$ has solutions, since $\gcd(6,21)=3\mid 9$. Moreover, it has exactly $3$ solutions, which are $x\equiv 5,\ 12,\ 19 \pmod{21}$. While $6x\equiv 9 \pmod{14}$ does not have solutions, since $\gcd(6,14)=2\nmid 9$.
+\end{example}
+
+\begin{proof}
+Suppose \eqref{eq:linear congruence} has a solution $x\equiv x_0 \pmod{m}$ with $x_0\in\mathbb{Z}$. Then $ax_0\equiv b \pmod{m}$, which implies $ax_0+qm=b$ for some $q\in\mathbb{Z}$. Since $\gcd(a,m)$ divides both $a$ and $m$, by Proposition \ref{prop:Divisibility of Linear Combination}, we have $\gcd(a,m)\mid b$.
+
+Conversely, suppose $\gcd(a,m)\mid b$. Let $d=\gcd (a,m)$, then we can write $a=da_0$, $b=db_0$, and $m=dm_0$ with $\gcd(a_0,m_0)=1$. Then \eqref{eq:linear congruence} reduces to
+$$
+a_0x\equiv b_0\pmod{m_0}.
+$$
+Since $\gcd(a_0,m_0)=1$, there exists an integer $a_0^{-1}\in\mathbb{Z}$ such that $a_0a_0^{-1}\equiv 1\pmod{m_0}$. Multiplying both sides by $a_0^{-1}$ gives
+$$
+x\equiv a_0^{-1}b_0\pmod{m_0}.
+$$
+Thus \eqref{eq:linear congruence} has a solution.
+
+Now we lift the above solution modulo $m_0$ to solutions modulo $m$, and show that
+ $$
+ x\equiv a_0^{-1}b_0+km_0\pmod{m},\quad k=0,1,2,\cdots,d-1,
+ $$
+ are all the solutions to \eqref{eq:linear congruence}, which are pairwise incongruent modulo $m$.
+
+First, suppose two solutions corresponding to $k=k_1$ and $k=k_2$ are congruent modulo $m$, where $0\leq k_1<k_2\leq d-1$. Then
+$$
+a_0^{-1}b_0+k_1m_0\equiv a_0^{-1}b_0+k_2m_0\pmod{m}.
+$$
+It follows that $(k_2-k_1)m_0\equiv 0\pmod{m}$. Since $m=dm_0$, this implies $k_1\equiv k_2\pmod{d}$, and then $d\mid k_1-k_2$. Observe that $|k_2-k_1|<d$. By Corollary \ref{cor:Bounded Divisibility Forces Zero}, we have $k_1-k_2=0$, which contradicts $k_1<k_2$. Therefore, the $d$ solutions listed above are pairwise incongruent modulo $m$.
+
+Next, let $x^{\prime}$ be any solution to $ax \equiv b \pmod{m}$. Then $x^{\prime}$ must satisfy $a_0 x^{\prime} \equiv b_0 \pmod{m_0}$, which implies $x^{\prime} \equiv a_0^{-1}b_0 \pmod{m_0}$. Thus, $x^{\prime} = a_0^{-1}b_0 + t m_0$ for some integer $t$. By the division algorithm, we can write $t = q d + k$, where $q \in \mathbb{Z}$ and $0 \leq k \leq d - 1$. Then we have
+$$
+x^{\prime}=a_0^{-1}b_0+(qd+k)m_0=a_0^{-1}b_0+km_0+qm.
+$$
+Therefore, $x^{\prime} \equiv a_0^{-1}b_0 + k m_0 \pmod{m}$, showing that $x^{\prime}$ is congruent to one of the $d$ solutions listed above. Hence, \eqref{eq:linear congruence} has exactly $d$ solutions modulo $m$. \hfill$\square$
+\end{proof}
+
+\begin{problem}
+    Given integers $a, b, c, m$ such that $m \nmid a$, how can we solve the quadratic congruence equation $ax^2 + bx + c \equiv 0 \pmod{m}$?
+\end{problem}
+
+
+\section{Chinese Remainder Theorem}
+
+\begin{theorem}[Chinese Remainder Theorem]\label{thm:Chinese Remainder Theorem}
+	If non-zero integers $m_{1}, m_{2},\cdots, m_{k}$ are pairwise coprime non-zero integers, then the system of congruences
+	\begin{equation}\label{eq:congruence system}
+		\begin{cases}
+			x\equiv a_1\ \pmod{m_1}\\
+			x\equiv a_2\ \pmod{m_2}\\
+			\indent \vdots\\
+			x\equiv a_k\ \pmod{m_k}
+		\end{cases}
+	\end{equation}
+	has integer solutions, which form a residue class modulo $m_{1}m_{2}\cdots m_{k}$.
+\end{theorem}
+
+\begin{proof}
+	Define $M_i$ as the product
+	$$
+	M_i=m_1\cdots m_{i-1}m_{i+1}\cdots m_k
+	$$
+	for each $i$. Let each $M_i^{-1}$ be the multiplicative inverse of $M_i$ modulo $m_i$, i.e.,
+	$$
+	M_i^{-1}M_i\equiv 1 \pmod{m_i}
+	$$
+	for $i=1,2,\cdots,k$. Consider a candidate solution of the form
+	\begin{equation}\label{eq: solution in CRT}
+		x\equiv a_1M_1M_1^{-1}+\cdots+a_kM_kM_k^{-1} \pmod{m_1m_2\cdots m_k}.
+	\end{equation}
+	By construction, this $x$ satisfies each individual congruence in the system. Specifically, for each $i$,  the terms not involving $a_i$ will vanish modulo $m_i$, leaving $x\equiv a_i\pmod{m_i}$.
+	
+	If another integer $x^{\prime}$ satisfies all the congruences in the system, then for each $i$, $x\equiv x^{\prime} \pmod{m_i}$. This implies $x\equiv x^{\prime}\pmod{m_1\cdots m_k}$. Hence (\ref{eq: solution in CRT}) gives all the solutions of the system.\hfill$\square$
+\end{proof}
+
+ \begin{example}
+     Consider
+\begin{equation}
+	\begin{cases}
+		x\equiv 2\pmod{3}\\
+		x\equiv 3\pmod{5}\\
+		x\equiv 2\pmod{7}.
+	\end{cases}
+\end{equation}
+Take
+$$
+a_1=2,\ a_2=3,\ a_3=2
+$$
+and
+$$
+m_1=3,\ m_2=5,\ m_3=7.
+$$
+We have
+$$
+M_1=5\cdot 7=35,\ M_2=3\cdot 7=21,\ M_3=3\cdot 5=15
+$$
+and
+$$
+M_1^{-1}=2,\ M_2^{-1}=1,\ M_3^{-1}=1.
+$$
+By CRT, we obtain
+$$
+x\equiv 2\cdot 35\cdot 2+3\cdot 21\cdot 1+2\cdot 15\cdot 1\equiv 23 \pmod{105}.
+$$
+ \end{example}
+
+\newpage
+
+\chapter{Quadratic congruence equation modulo a prime}
+
+\section{Quadratic Residues}
+
+\begin{definition}
+    Let $p$ be an odd prime. An integer $a$ is called a quadratic residue modulo $p$ if there exists an integer $x$ such that
+$$
+x^2 \equiv a \pmod{p}.
+$$
+Otherwise, $a$ is called a quadratic non-residue modulo $p$.
+\end{definition}
+
+\begin{example}
+    All quadratic residues modulo $7$ are $1$, $2$ and $4$, because
+
+\begin{align*}
+    1^2 &\equiv 1 \pmod{7}, \\
+    2^2 &\equiv 4 \pmod{7}, \\
+    3^2 &\equiv 9 \equiv 2 \pmod{7}, \\
+    4^2 &\equiv 16 \equiv 2 \pmod{7}, \\
+    5^2 &\equiv 25 \equiv 4 \pmod{7}, \\
+    6^2 &\equiv 36 \equiv 1 \pmod{7}.
+\end{align*}
+\end{example}
+
+\begin{exercise}
+Please list all the quadratic residues and nonresidues for modulus $13$. 
+\end{exercise}
+
+\begin{exercise}
+Given an arbitrary odd prime number $p$, please show that the number of quadratic residues and the number of quadratic non-residues are equal.
+\end{exercise}
+
+
+\newpage
+\section{Legendre symbol}
+
+\begin{definition}
+    Given an odd prime $p$, the Legendre symbol modulo $p$ is a function on $\mathbb{Z}$, defined as
+$$
+\left(\frac{a}{p}\right)=
+\begin{cases}
+1,&{\rm~if~} a {\rm ~is ~a~quadratic~residue~modulo~}p.\\
+-1,&{\rm~if~} a {\rm ~is ~a~quadratic~nonresidue~modulo~}p.\\
+0,&{\rm~if~} p\mid a.
+\end{cases}
+$$
+\end{definition}
+
+
+\begin{example}
+    We have $\left(\frac{2}{7}\right)=1$, $\left(\frac{3}{7}\right)=-1$ and $\left(\frac{21}{7}\right)=0$. It is also clear that $\big(\frac{1}{p}\big)=1$ for any odd prime number $p$.  
+\end{example}
+
+
+
+\begin{problem}
+    What is the time complexity of computing the Legendre symbol using its definition?
+\end{problem}
+
+
+
+\begin{theorem}[Euler's criterion]\label{thm: Euler's criterion}
+Let $p$ be an odd prime and $a$ be an integer, then we have
+$$
+\left(\frac{a}{p}\right)\equiv a^{\frac{p-1}{2}} \pmod{p},
+$$
+which determines the value of the Legendre symbol.
+\end{theorem}
+
+\begin{proof}
+If $p\mid a$, then by the definition of the Legendre symbol, we have $\left(\frac{a}{p}\right)=0$. Additionally, in this case, we have $a^{\frac{p-1}{2}}\equiv 0 \pmod{p}$. Thus, the desired result holds in this situation.
+
+Now we suppose $p\nmid a$. By Euler's Theorem, we have
+$$
+a^{p-1}=\big(a^{\frac{p-1}{2}}\big)^2\equiv 1 \pmod{p}.
+$$
+It follows that $a^{\frac{p-1}{2}}\equiv 1 \pmod{p}$ or $a^{\frac{p-1}{2}}\equiv -1  \pmod{p}$, since $p$ is a prime. We claim that $a$ is a quadratic residue if and only if $a^{\frac{p-1}{2}}\equiv 1 \pmod{p}$. If $a$ is a quadratic residue, there exists $n\in\mathbb{Z}$ with $p\nmid n$ such that $n^2\equiv a \pmod{p}$. Hence, we have
+$$
+a^{\frac{p-1}{2}}\equiv n^{p-1}\equiv 1 \pmod{p},
+$$
+which is just our claim.
+
+Conversely, if $a^{\frac{p-1}{2}}\equiv 1 \pmod{p}$, we consider the set
+$$
+S=\Big\{-\frac{p-1}{2},\cdots,-1,1,\cdots,\frac{p-1}{2}\Big\}.
+$$
+For each $d\in S$, there exists $x_d\in S$ such that $dx_d\equiv a \pmod{p}$. Now assume that $a$ is not a quadratic residue. Then for every $d$, we have $d\neq x_d$, and the set $S$ can be partitioned into pairs of the form $d,x_d$. This leads to
+$$
+-1\equiv (p-1)!\equiv (-1)^{\frac{p-1}{2}}\left(\frac{p-1}{2}\right)!\equiv d^{\frac{p-1}{2}} \pmod{p},
+$$
+which contradicts the assumption. Hence, $a$ must be a quadratic residue modulo $p$.\hfill$\square$
+\end{proof}
+
+\begin{example}
+    Consider $p=7$ and $a=3$. Using Euler's criterion to compute the Legendre symbol, we find
+$$
+\left(\frac{a}{p}\right)=3^{\frac{7-1}{2}}\equiv 3^3\equiv -1 \pmod{p}.
+$$
+This indicates that $\left(\frac{a}{p}\right)=-1$, which means $3$ is a quadratic nonresidue modulo $7$.
+\end{example}
+
+\begin{corollary}[Special value of Legendre's symbol at $-1$]
+For an odd prime $p$, we have
+$$
+\left(\frac{-1}{p}\right)=(-1)^{\frac{p-1}{2}}=
+\begin{cases}
+1,&{\rm if}\ p\equiv 1 \pmod{4},\\
+-1,&{\rm if}\ p\equiv 3 \pmod{4}.
+\end{cases}
+$$
+\end{corollary}
+
+\begin{proof}
+By Euler's criterion, we have
+\[
+\left(\frac{-1}{p}\right)\equiv (-1)^{\frac{p-1}{2}}\pmod{p}
+\]
+Since the Legendre symbol \(\left(\frac{-1}{p}\right)\) and $(-1)^{\frac{p-1}{2}}$ take values only in \(\{-1, 1\}\), and \( p \geq 3 \) is an odd prime, the congruence implies the equality
+\[
+\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}}.
+\]
+The cases for $p \equiv 1$ or $3 \pmod{4}$ follow immediately by evaluating the exponent modulo $2$.\hfill$\square$
+\end{proof}
+
+\begin{problem}
+    What is the time complexity of computing the Legendre symbol using Euler's criterion?
+\end{problem}
+
+
+
+\begin{theorem}[Properties of the Legendre symbol]
+Let $p$ be an odd prime. Then for any $a,b\in\mathbb{Z}$, we have
+\begin{itemize}
+  \item $\big(\frac{a+p}{p}\big)=\big(\frac{a}{p}\big)$.
+  \item $\big(\frac{ab}{p}\big)=\big(\frac{a}{p}\big)\big(\frac{b}{p}\big)$.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+By Euler's criterion, we have
+$$
+\left(\frac{a+p}{p}\right)\equiv (a+p)^{\frac{p-1}{2}}\equiv a^{\frac{p-1}{2}}\equiv\left(\frac{a}{p}\right)\pmod{p}.
+$$
+Similarly, for the product, we have
+$$
+\left(\frac{ab}{p}\right)\equiv (ab)^{\frac{p-1}{2}}=a^{\frac{p-1}{2}}b^{\frac{p-1}{2}}\equiv \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)\pmod{p}.
+$$
+Thus, we have established the stated properties.\hfill$\square$
+\end{proof}
+
+\begin{example}
+    We have $\left(\frac{9}{7}\right)=\left(\frac{2}{7}\right)=1$ and $\left(\frac{6}{7}\right)=\left(\frac{2}{7}\right)\left(\frac{3}{7}\right)=-1$.
+\end{example}
+
+
+\begin{problem}
+    Is $67$ a quadratic residue modulo $109$?
+\end{problem}
+
+
+\newpage
+\section{Law of quadratic reciprocity}
+
+\begin{theorem}[Law of Quadratic Reciprocity]
+Let $p$ and $q$ be distinct odd primes. Then we have
+$$
+\left(\frac{q}{p}\right)\left(\frac{p}{q}\right)= (-1)^{\frac{p-1}{2} \cdot \frac{q-1}{2}}.
+$$
+\end{theorem}
+
+\begin{proof} Refer to the next section.\hfill$\square$
+\end{proof}
+
+\begin{example}
+    Consider the primes $q=67$ and $p=109$. Using properties of the Legendre symbol, we can express
+$$
+\left(\frac{67}{109}\right)=\left(\frac{109}{67}\right)=\left(\frac{42}{67}\right)=\left(\frac{2\cdot3\cdot7}{67}\right)=
+\left(\frac{2}{67}\right)\left(\frac{3}{67}\right)\left(\frac{7}{67}\right).
+$$
+From the law of quadratic reciprocity, we observe
+$$
+\left(\frac{2}{67}\right)=-1,\indent\left(\frac{3}{67}\right)=-\left(\frac{67}{3}\right)=-\left(\frac{1}{3}\right)=-1
+$$
+and
+$$
+\left(\frac{7}{67}\right)=-\left(\frac{67}{7}\right)=-\left(\frac{4}{7}\right)=-1.
+$$
+Thus, combining these results, we obtain
+$$
+\left(\frac{67}{109}\right)=(-1)\cdot(-1)\cdot(-1)=-1.
+$$
+This indicates that $67$ is not a quadratic residue modulo $109$, which means the congruence equation
+$$
+x^2\equiv 69\pmod{p}
+$$
+has solutions.
+\end{example}
+
+\begin{exercise}
+Is the congruence equation the congruence equation
+$$
+3x^{2}+5x+8\equiv 0 \pmod{101}
+$$
+solvable?
+\end{exercise}
+
+\begin{exercise}
+Is the congruence equation $3x^2+2x+1\equiv 0\pmod{106}$ solvable?
+\end{exercise}
+
+\section{Proof of the law of quadratic reciprocity}
+
+\begin{lemma}[Gauss's Lemma]
+
+Given an odd prime $p$ and an integer $a$ with $(a,p)=1$, define $N$ as the number of pairs of integers $(j,r)$ with $1\leq j\leq \frac{p-1}{2}$ and $\frac{p}{2}<r<p$ for which $aj\equiv r \pmod{p}$. Then we have
+$$
+\left(\frac{a}{p}\right)=(-1)^N.
+$$
+\end{lemma}
+
+\begin{proof}
+For every integer $1\leq j\leq\frac{p-1}{2}$, there exists a unique integer $r_j$ with $1\leq r_j<p$ such that $aj \equiv r_j \pmod{p}$. It is not difficult to see that all these integers $r_j$ are distinct. Multiplying these congruences both sides, we obtain
+$$
+a^{\frac{p-1}{2}} \Big(\frac{p-1}{2}\Big)! \equiv r_1r_2\cdots r_{\frac{p-1}{2}} \pmod{p}.
+$$
+For convenience, let
+$$
+S=\Big\{r_1,r_2,\cdots,r_{\frac{p-1}{2}}\Big\}.
+$$
+We claim that
+$$
+r_1r_2\cdots r_{\frac{p-1}{2}}\equiv (-1)^N\Big(\frac{p-1}{2}\Big)! \pmod{p},
+$$
+where $n$ is the number of all the integers in $S$ such that $\frac{p}{2}<r_j<p$. Accepting this claim momentarily, we deduce
+$$
+a^{\frac{p-1}{2}} \Big(\frac{p-1}{2}\Big)!\equiv (-1)^N\Big(\frac{p-1}{2}\Big)! \pmod{p}.
+$$
+As $p$ is a prime, $\big(\frac{p-1}{2}\big)!$ is coprime to $p$, it follows that
+$$
+a^{\frac{p-1}{2}}\equiv (-1)^N\pmod{p}.
+$$
+This result, combined with Euler's criterion, gives the desired lemma.
+
+To prove the above claim, label the integers larger than $p/2$ in $S$ as $s_1,s_2,\cdots,s_N$ and the positive integers in $S$ as $t_1,t_2,\cdots,t_{M}$, respectively. Clearly, $M+N=\frac{p-1}{2}$. Our aim is to show that
+$$
+\Big\{p-s_1,p-s_2,\cdots,p-s_N,t_1,t_2,\cdots,t_{M}\Big\}=\Big\{1,2,\cdots,\frac{p-1}{2}\Big\}.
+$$
+Observe that the set on the left-hand side is a subset of the set on the right hand side. So we only need to prove that the integers in the left-hand side are distinct. This requires to prove $p-s_k\neq t_l$ for any $k$ and $l$, which is sufficient. By the definition of $s_k$ and $t_l$, there exist integers $1\leq j_k, j_l\leq\frac{p-1}{2}$ such that $aj_k\equiv s_k$ and $aj_l\equiv t_l$. Assume that $p-s_k=t_l$, then we have
+$$
+a(j_k+j_l)\equiv s_k+t_l\equiv 0\pmod{p}.
+$$  
+As $(a,p)=1$, we have $j_k+j_l\equiv 0\pmod{p}$, which is impossible according to the ranges of $j_k$ and $j_l$. Thus, our assumption is false, leading to the desired result. Hence,
+$$
+(p-s_1)(p-s_2)\cdots (p-s_N)t_1\cdots t_M=\Big(\frac{p-1}{2}\Big)!,
+$$
+which gives
+$$
+r_1r_2\cdots r_{\frac{p-1}{2}}=s_1s_2\cdots s_Nt_1t_2\cdots t_M\equiv (-1)^N\Big(\frac{p-1}{2}\Big)!\pmod{p}
+$$
+This completes our proof.\hfill$\square$
+\end{proof}
+
+\begin{corollary}[Special value of Legendre's symbol at $-2$] For an odd prime $p$, we have
+$$
+\left(\frac{2}{p}\right)=(-1)^{\frac{p^{2}-1}{8}}=
+\begin{cases}
+1,&{\rm if}\ p\equiv\pm 1 \pmod{8}\\
+-1,&{\rm if}\ p\equiv\pm 3 \pmod{8}.\\
+\end{cases}
+$$
+\end{corollary}
+
+\begin{proof}
+We use Gauss's Lemma to compute $\left(\frac{2}{p}\right)$. Let $S = \left\{1, 2, \dots, (p-1)/2\right\}$, and let $\mu$ be the number of integers in $S$ multiplied by $2$ that exceed $p/2$. By Gauss's Lemma, we have
+\[
+\left(\frac{2}{p}\right) = (-1)^{\mu}.
+\]
+
+For each $1 \leq k \leq \frac{p-1}{2}$, consider $2k$. The condition $2k > p/2$ is equivalent to $k > p/4$. It follows that
+\[
+\mu=\Big[\frac{p-1}{2} \Big] - \Big[\frac{p}{4} \Big].
+\]
+
+
+Observe that:
+\begin{itemize}
+    \item If \( p \equiv 1 \pmod{8} \), let $p=8k+1$ for some integer $k$, then $\mu=\big[ \frac{(8k+1)-1}{2} \big] - \big[ \frac{8k+1}{4} \big]=2k$ is even.
+    \item If \( p \equiv 3 \pmod{8} \), let $p=8k+3$ for some integer $k$, then $\mu=\big[ \frac{(8k+3)-1}{2} \big] - \big[ \frac{8k+3}{4} \big]=2k+1$ is odd.
+    \item If \( p \equiv 5 \pmod{8} \), let $p=8k+5$ for some integer $k$, then $\mu=\big[ \frac{(8k+5)-1}{2} \big] - \big[ \frac{8k+5}{4} \big]=2k+1$ is odd.
+    \item If \( p \equiv 7 \pmod{8} \), let $p=8k+7$ for some integer $k$, then $\mu=\big[ \frac{(8k+7)-1}{2} \big] - \big[\frac{8k+7}{4} \big]=2k+2$ is even.
+\end{itemize}
+These imply that
+\[
+\mu \equiv \frac{p^2 - 1}{8} \pmod{2},
+\]
+which gives our desired result.\hfill$\square$
+\end{proof}
+
+\begin{lemma}[Counting lemma for quadratic reciprocity]\label{lem: Counting lemma for quadratic reciprocity}
+Given two distinct odd primes $p,q$, define $N$ as the number of pairs of integers $(j,r)$ with $1\leq j\leq \frac{p-1}{2}$ and $\frac{p}{2}<r<p$ for which $qj\equiv r \pmod{p}$. Then we have
+$$
+N\equiv\sum\limits_{j=1}^{(p-1)/2}\Big[\frac{jq}{p}\Big]\pmod{2}.
+$$
+\end{lemma}
+
+\begin{proof}
+For each $1\leq j\leq \frac{p-1}{2}$, by division with remainder, we have
+$$
+qj=p\Big[\frac{qj}{p}\Big]+r_j,\quad 1\leq r_j<p.
+$$
+Under the notations in the proof of the Gauss's lemma, sum up these equations both sides, we obtain
+$$
+q\sum\limits_{j=1}^{(p-1)/2}j=p\sum\limits_{j=1}^{(p-1)/2}\Big[\frac{qj}{p}\Big]+s_1+s_2\cdots+s_{N}+t_1+t_2\cdots+t_M
+$$
+Recall that
+$$
+\Big\{p-s_1,p-s_2,\cdots,p-s_N,t_1,t_2,\cdots,t_{M}\Big\}=\Big\{1,2,\cdots,\frac{p-1}{2}\Big\}.
+$$
+Then we have
+\begin{align*}
+q\sum\limits_{j=1}^{(p-1)/2}j&=p\sum\limits_{j=1}^{(p-1)/2}\Big[\frac{qj}{p}\Big]+(p-s_1)+(p-s_2)\cdots (p-s_{N})\\
+&\ \ \ +t_1+t_2\cdots+t_M+2(s_1+s_2\cdots+s_N)-pN\\
+&=p\Big(\sum\limits_{j=1}^{(p-1)/2}\Big[\frac{qj}{p}\Big]-N\Big)+\sum\limits_{j=1}^{(p-1)/2}j+2(s_1+s_2\cdots+s_N).
+\end{align*}
+which gives
+$$
+\frac{(p^2-1)(q-1)}{8}=p\Big(\sum\limits_{j=1}^{(p-1)/2}\Big[\frac{qj}{p}\Big]-N\Big)+2(s_1+s_2\cdots+s_N).
+$$
+Note that $p$ and $q$ are both odd primes, then we conclude that
+$$
+N\equiv \sum\limits_{j=1}^{(p-1)/2}\Big[\frac{qj}{p}\Big]\pmod{2},
+$$
+which is our desired result.
+\end{proof}
+
+Now we are ready to prove the law of quadratic reciprocity. Consider a rectangle whose vertices are at the points $(0,0)$, $(p/2,0),(0,q/2)$ and $(p/2,q/2)$.
+
+First, let's determine the number of integer points strictly inside this rectangle. The count of these points is
+$$
+\frac{p-1}{2}\cdot\frac{q-1}{2}.
+$$
+
+Next, consider the diagonal connecting $(0,0)$ to $(p/2,q/2)$, whose equation is $py - qx = 0$. Since $p$ and $q$ are distinct primes, the only integer lattice point on this diagonal within the rectangular region $0 \leq x \leq p/2$, $0 \leq y \leq q/2$ is $(0,0)$. To see this, suppose $(x,y)$ is another integer solution to $py = qx$. By the primality and distinctness of $p$ and $q$, it follows that $q$ divides $y$ and $p$ divides $x$. Writing $y = qk$ and $x = p\ell$ for integers $k,\ell$, substitution yields $p(qk) = q(pl)$, which gives $k = l$. Thus, all integer solutions are of the form $(pl, ql)$. However, for $l \geq 1$, these points violate the boundary conditions since $pl > p/2$ and $ql > q/2$.
+
+Then, let's compute the number of integer points below this diagonal: For given
+$x=j$, where $0<j<(p-1)/2$, the valid range for $y$ is $0<y<qj/p$. Thus, the number of suitable values of $y$ is $\lfloor qj/p\rfloor$. Summing over $j$,  the total count of lattice points below the diagonal is
+$$
+N=\sum\limits_{j=1}^{(p-1)/2}\Big[\frac{qj}{p}\Big].
+$$
+Similarly, the number of integer points above the diagonal is equal to
+$$
+N^{\prime}=:\sum\limits_{j=1}^{(q-1)/2}\Big[\frac{pj}{q}\Big].
+$$
+
+Finally, by the relation
+$$
+N+N^{\prime}=\frac{p-1}{2}\cdot\frac{q-1}{2}.
+$$
+and Lemma \ref{lem: Counting lemma for quadratic reciprocity}, we derive the law of quadratic reciprocity.\hfill$\square$
+
+\section{Jacobi symbol}
+
+\begin{definition}
+    The Jacobi symbol is a generalization of the Legendre symbol. If $a$ is an integer and $m$ is an odd positive integer, then the Jacobi symbol is defined as the product of Legendre symbols for the prime factors of $m$. Specifically, let $m = p_1p_2\cdots p_k$ be the prime factorization of $m$, where $p_i$ are odd primes (not necessarily distinct). The Jacobi symbol is given by
+$$
+\left(\frac{a}{m}\right):= \left(\frac{a}{p_1}\right)\left(\frac{a}{p_2}\right)\dots\left(\frac{a}{p_k}\right),
+$$
+where each $\big(\frac{a}{p_i}\big)$ is the Legendre symbol.
+\end{definition}
+
+\begin{example}
+    For example,
+\[
+\left(\frac{2}{45}\right)=\left(\frac{2}{3}\right)\left(\frac{2}{3}\right)\left(\frac{2}{5}\right)=-1.
+\]
+\end{example}
+
+\begin{note}
+    Clearly, when $n$ is a prime, the Jacobi symbol is the Legendre symbol. By definition, the values of the Jacobi symbol can be only $-1$, $0$ or $1$. It is clear that $\left(\frac{1}{m}\right)=1$. Furthermore, if $\gcd(a,m)>1$, then $\left(\frac{a}{m}\right)=0$.
+\end{note}
+
+\begin{proposition}[Periodicity of the Jacobi symbol] For any positive odd integer $m$, if $a\equiv b\pmod{m}$, then $\left(\frac{a}{m}\right)=\left(\frac{b}{m}\right)$.
+\end{proposition}
+
+\begin{proof}
+Let $m = p_1p_2\cdots p_k$ be the prime factorization of $m$, where $p_i$ are odd primes (not necessarily distinct). Since $a \equiv b \pmod{m}$, it follows that $a \equiv b \pmod{p_i}$ for each $i$. By the periodicity of the Legendre symbol, if $a \equiv b \pmod{p_i}$, then $\left( \frac{a}{p_i} \right) = \left( \frac{b}{p_i} \right)$. Multiplying over all prime factors of $m$ yields
+\[
+\left( \frac{a}{m} \right) = \prod_{i=1}^k \left( \frac{a}{p_i} \right) = \prod_{i=1}^k \left( \frac{b}{p_i} \right) = \left( \frac{b}{m} \right),
+\]
+which is our desired result. \hfill$\square$
+\end{proof}
+
+\begin{proposition}[Multiplicity of the Jacobi symbol] Let $m$ and $n$ be positive odd integers, and let $a$ and $b$ be any integers. Then
+
+\begin{itemize}
+\item[{\rm (i)}] 
+$\left( \frac{ab}{m} \right) = \left( \frac{a}{m} \right) \left( \frac{b}{m} \right)$.
+
+\item[{\rm (ii)}] $\left( \frac{a}{mn} \right) = \left( \frac{a}{m} \right) \left( \frac{a}{n} \right)$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+For property $\rm (i)$, let $m = p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}$ be the prime factorization of $m$. By the multiplicative property of the Legendre symbol, for each $i$, we have $\left( \frac{ab}{p_i} \right) = \left( \frac{a}{p_i} \right) \left( \frac{b}{p_i} \right)$, which gives $\left( \frac{ab}{p_i} \right)^{k_i} = \left( \frac{a}{p_i} \right)^{k_i} \left( \frac{b}{p_i} \right)^{k_i}$. Multiplying over all prime factors of $m$ gives
+\[
+\left( \frac{ab}{m} \right) = \prod_{i=1}^r \left( \frac{ab}{p_i} \right)^{k_i} = \prod_{i=1}^r \left( \frac{a}{p_i} \right)^{k_i} \cdot \prod_{i=1}^r \left( \frac{b}{p_i} \right)^{k_i} = \left( \frac{a}{m} \right) \left( \frac{b}{m} \right).
+\]
+
+For property $\rm (ii)$, let \( m = \prod_{i=1}^r p_i^{k_i} \) and \( n = \prod_{j=1}^s q_j^{l_j} \). The factorization \( mn = \prod_{i=1}^r p_i^{k_i} \prod_{j=1}^s q_j^{l_j} \) implies
+\[
+\left( \frac{a}{mn} \right) = \prod_{i=1}^r \left( \frac{a}{p_i} \right)^{k_i} \cdot \prod_{j=1}^s \left( \frac{a}{q_j} \right)^{l_j} = \left( \frac{a}{m} \right) \left( \frac{a}{n} \right).
+\]
+This completes the proof of the properties. \hfill$\square$
+\end{proof}
+
+\begin{proposition}[Special values of Jacobi symbol at $-1$ and $2$]
+	Let $m$ be a positive odd integer. Then
+	\begin{itemize}
+		
+		\item [{\rm (i)}] $\left(\frac{-1}{m}\right)=(-1)^{\frac{m-1}{2}}$.
+		
+		\item [{\rm (ii)}] $\left(\frac{2}{m}\right)=(-1)^{\frac{m^2-1}{8}}$.
+        
+	\end{itemize}
+\end{proposition}
+
+\begin{proof}
+For identity $\rm (i)$, let \( m = \prod_{i=1}^k p_i \) where \( p_i \) are odd primes (not necessarily distinct). By the definition of the Jacobi symbol and the property of Legendre symbol, we have
+\[
+\left(\frac{-1}{m}\right) = \prod_{i=1}^k \left(\frac{-1}{p_i}\right) = \prod_{i=1}^k (-1)^{\frac{p_i-1}{2}} = (-1)^{\sum_{i=1}^k \frac{p_i-1}{2}}.
+\]
+It suffices to show that
+\begin{align}\label{eq: sum of (p_i-1)/2 mod 2}
+\sum_{i=1}^k \frac{p_i-1}{2} \equiv \frac{m-1}{2} \pmod{2}.
+\end{align}
+
+Observe that for each prime \( p_i \), we can write
+\[p_i = 1 + 2 \cdot \frac{p_i-1}{2}.\]
+Taking the product over all \( p_i \), we obtain
+\[
+m \equiv \prod_{i=1}^k \left(1 + 2 \cdot \frac{p_i-1}{2}\right) \equiv 1 + 2 \sum_{i=1}^k \frac{p_i-1}{2} \pmod{4},
+\]
+which implies \eqref{eq: sum of (p_i-1)/2 mod 2}. This completes the proof of identity $\rm (i)$.
+
+For identity $\rm (ii)$, let \( m = \prod_{i=1}^k p_i \). Using the Legendre symbol's property, we have
+\[
+\left(\frac{2}{m}\right) = \prod_{i=1}^k \left(\frac{2}{p_i}\right) = \prod_{i=1}^k (-1)^{\frac{p_i^2-1}{8}} = (-1)^{\sum_{i=1}^k \frac{p_i^2-1}{8}}.
+\]
+It suffices to show that
+\begin{align}\label{eq: sum of (p_i^2-1)/8 mod 2}
+\sum_{i=1}^k \frac{p_i^2-1}{8} \equiv \frac{m^2-1}{8} \pmod{2}.
+\end{align}
+
+Note that for any odd integer $p$, we have $p^2 \equiv 1 \pmod{8}$. Therefore
+\[
+m^2 = \prod_{i=1}^k p_i^2 \equiv 1 \pmod{8} \quad \text{and} \quad \frac{m^2-1}{8} \in \mathbb{Z}.
+\]
+By expanding
+\[
+m^2 = \prod_{i=1}^k (1 + 8 \cdot \frac{p_i^2-1}{8})
+\]
+and considering the terms modulo $16$, we obtain
+\[
+m^2 \equiv 1 + 8 \sum_{i=1}^k \frac{p_i^2-1}{8} \pmod{16},
+\]
+which implies \eqref{eq: sum of (p_i^2-1)/8 mod 2}. This completes the proof of identity $\rm (ii)$.\hfill$\square$
+\end{proof}
+
+\begin{proposition}[Reciprocity Law for the Jacobi Symbol]
+Let $m,n$ be positive odd integers, then we have
+$$
+\left(\frac{n}{m}\right)\left(\frac{m}{n}\right)= (-1)^{\frac{m-1}{2} \cdot \frac{n-1}{2}}.
+$$
+\end{proposition}
+
+\begin{proof}
+Let \( m = \prod_{i=1}^k p_i \) and \( n = \prod_{j=1}^\ell q_j \) be the prime factorizations of \( m \) and \( n \) respectively (where primes may repeat). By definition of the Jacobi symbol, we have
+\[
+\left(\frac{n}{m}\right) = \prod_{i=1}^k \left(\frac{n}{p_i}\right) = \prod_{i=1}^k \prod_{j=1}^\ell \left(\frac{q_j}{p_i}\right),
+\]
+and
+\[
+\left(\frac{m}{n}\right) = \prod_{j=1}^\ell \left(\frac{m}{q_j}\right) = \prod_{j=1}^\ell \prod_{i=1}^k \left(\frac{p_i}{q_j}\right).
+\]
+For each pair \((p_i, q_j)\), by the reciprocity of quadratic law, we have
+\[
+\left(\frac{q_j}{p_i}\right)\left(\frac{p_i}{q_j}\right) = (-1)^{\frac{p_i-1}{2}\cdot\frac{q_j-1}{2}}.
+\]
+Thus the product becomes
+\[
+\prod_{i=1}^k \prod_{j=1}^\ell \left(\frac{q_j}{p_i}\right)\left(\frac{p_i}{q_j}\right) = \prod_{i,j} (-1)^{\frac{p_i-1}{2}\cdot\frac{q_j-1}{2}} = (-1)^{\big(\sum\limits_{i=1}^k \frac{p_i-1}{2}\big)\big(\sum\limits_{j=1}^l\frac{q_j-1}{2}\big)}.
+\]
+
+It suffices to show that
+\[
+\sum_{i=1}^k \frac{p_i-1}{2} \equiv \frac{m-1}{2} \pmod{2} \quad \text{and} \quad \sum_{j=1}^\ell  \frac{q_i-1}{2} \equiv \frac{n-1}{2} \pmod{2}.
+\]
+This holds because
+\[
+m = \prod_{i=1}^k p_i \equiv \prod_{i=1}^k (1 + 2\cdot\frac{p_i-1}{2}) \equiv 1 + 2\sum_{i=1}^k  \frac{p_i-1}{2} \pmod{4},
+\]
+and similarly for \( n \). Therefore
+\[
+\Big(\sum\limits_{i=1}^k \frac{p_i-1}{2}\Big)\Big(\sum\limits_{j=1}^l\frac{q_j-1}{2}\Big) \equiv \frac{m-1}{2} \cdot \frac{n-1}{2} \pmod{2}.
+\]
+Combining all the above steps yields
+\[
+\left(\frac{n}{m}\right)\left(\frac{m}{n}\right) = (-1)^{\frac{m-1}{2} \cdot \frac{n-1}{2}}
+\]
+as desired.\hfill$\square$
+\end{proof}
+
+\begin{note}
+    In general, the Jacobi symbol $\left(\frac{a}{m}\right)=1$ does not mean that the congruence equation $x^2\equiv a\pmod{m}$ is solvable!
+\end{note}
+
+\begin{example}
+    The congruence equation $x^2\equiv -1\pmod{49}$ has no solution, but $\left(\frac{-1}{49}\right)=1$.
+\end{example}
+
+\begin{problem}
+    Given an integer $a$ and a large prime $p$, how can we quickly find a solution to the congruence equation $x^2\equiv a\pmod{p}$?
+\end{problem}
+
+\newpage
+\chapter{Congruence Equation of Higher Power}
+
+\section{Lagrange's Theorem}
+\begin{theorem}[Lagrange's Theorem] Let $p$ be a prime and $f(x)\in\mathbb{Z}[x]$ be a polynomial of degree $d\geq 1$ with leading coefficient not divisible by $p$, then the algebraic congruence
+$$
+f(x)\equiv 0 \pmod{p}
+$$
+has at most $d$ solutions modulo $p$.
+\end{theorem}
+
+\begin{proof}
+	We proceed by induction on $d$. The base case $d=1$ follows from Proposition \ref{prop:Linear Congruence Equation}. Now assume the result holds for all polynomials of degree $d-1$ with $d>1$. Suppose $x\equiv a \pmod{p}$ is a solution modulo $p$, i.e. $f(a)\equiv 0\pmod{p}$. By polynomial division with remainder, we can write
+	$$
+	f(x)=q(x)(x-a)+r,
+	$$
+	where $q(x)\in\mathbb{Z}[x]$ is a polynomial of degree $d-1$ and $r\in\mathbb{Z}$. Substituting $x=a$, we obtain
+	$$
+	r=f(a)\equiv 0 \pmod{p}.
+	$$
+
+	Now let $x\equiv b \pmod{p}$ is any solution modulo $p$, i.e. $f(b)\equiv 0\pmod{p}$. Then
+	$$
+	f(b)\equiv q(b)(b-a)\equiv 0 \pmod{p}.
+	$$
+	Since $p$ is a prime number, this implies that either $b\equiv a \pmod{p}$ or $q(b)\equiv 0 \pmod{p}$. By the induction hypothesis, the congruence equation $q(x)\equiv 0 \pmod{p}$ has at most $d-1$ solutions modulo $p$.  Including the possibility $b\equiv a \pmod{p}$, the total number of solutions is at most at most $d-1+1=d$. This completes the induction.\hfill$\square$
+\end{proof}
+
+\begin{example}
+    For example, all solutions of congruence equation
+$$
+x^3+x^2 +x+1\equiv 0 \pmod{5}
+$$
+are $x\equiv 2,3,4$, and the number of all solutions are not greater than $3$, the degree of the above polynomial.
+\end{example}
+
+\newpage
+\section{Hensel's Lemma}
+\begin{theorem}[Hensel's Lemma] Let $f(x)\in\mathbb{Z}[x]$, $p$ be a prime and $k\in\mathbb{N}$. Suppose that $x\equiv r\pmod{p^k}$ satisfies
+$$
+f(r)\equiv 0\pmod{p^k}
+$$
+with
+$$
+f^{\prime}(r)\not\equiv 0 \pmod{p}.
+$$
+Then there exists a unique lift $x\equiv s\pmod{p^{k+1}}$ such that
+$$
+f(s)\equiv 0 \pmod{p^{k+1}}
+$$
+and
+$$
+s\equiv r \pmod{p^k}.
+$$
+
+\end{theorem}
+
+\begin{proof}
+Existence: We seek for an integer $t$ such that $s = r + t p^k$ satisfies
+\begin{align}\label{eq: the first key congruence equation in the proof of Hensel's lemma}
+f(s)\equiv 0\pmod{p^{k+1}}.
+\end{align}
+By Taylor expansion (since $f$ is polynomial), we have
+\[
+f(r + t p^k) = f(r) + f'(r) t p^k + \text{higher-order terms in } p^{k+1}.
+\]
+Since $f(r) \equiv 0 \pmod{p^k}$, we write $f(r) = u p^k$ for some $u \in \mathbb{Z}$. The condition $f(s) \equiv 0 \pmod{p^{k+1}}$ reduces to
+\[
+u p^k + f'(r) t p^k \equiv 0 \pmod{p^{k+1}}.
+\]
+Dividing by $p^k$, we obtain
+\[
+u + f'(r) t \equiv 0 \pmod{p}.
+\]
+By hypothesis, $f'(r)$ is invertible modulo $p$ , this has a unique solution $t$, proving the existence of $s$.
+
+Uniqueness: Suppose $s_1$ and $s_2$ both satisfy \( f(s_i) \equiv 0 \pmod{p^{k+1}} \) and \( s_i \equiv r \pmod{p^k} \) (\( i = 1, 2 \)). Write \( s_1 = r + t_1 p^k \) and \( s_2 = r + t_2 p^k \). Then,
+\[
+f(s_1) - f(s_2) \equiv f'(r)(t_1 - t_2)p^k \pmod{p^{k+1}}.
+\]
+Since \( f(s_1) \equiv f(s_2) \equiv 0 \pmod{p^{k+1}} \), we have
+\[
+f'(r)(t_1 - t_2)p^k \equiv 0 \pmod{p^{k+1}}.
+\]
+Dividing by \( p^k \), we obtain
+\[
+f'(r)(t_1 - t_2) \equiv 0 \pmod{p}.
+\]
+But \( f'(r) \not\equiv 0 \pmod{p} \), so \( t_1 \equiv t_2 \pmod{p} \), implying \( s_1 \equiv s_2 \pmod{p^{k+1}} \).\hfill$\square$
+\end{proof}
+
+\begin{example}
+    Let's consider the congruence equation
+\begin{align}\label{eq: example of Hensel's lemma}
+f(x)=x^2-2\equiv 0\pmod{7^2}.
+\end{align}
+We start by choosing an initial solution $x\equiv 3\pmod{7}$ to
+$$
+f(x)=x^2-2\equiv 0\pmod{7}.
+$$
+Now we will show how to lift this solution to a solution of the above congruence equation modulo $7^2$.
+
+Note that $f^{\prime}(x)=2\dot x$ and $f^{\prime}(3)=6\not\equiv 0\pmod{7}$. According to the above proof of Hensel's lemma, we need to find an integer $t$ such that
+$$
+f(3+t\cdot 7)=(3+t\cdot 7)^2-2\equiv 0\pmod{7^2}.
+$$
+Unfolding the square, this congruence equation is equivalent to
+$$
+9+2\cdot 3\cdot 7\cdot t-2 \equiv 0\pmod{7^2},
+$$
+which simplifies to
+$$
+1+6t \equiv 0\pmod{7}.
+$$
+Solving this congruence equation, we obtain
+$$
+t\equiv 1\pmod{7}.
+$$
+Therefore, $x\equiv 3+1\cdot 7\equiv 10\pmod{7^2}$ is a solution to \eqref{eq: example of Hensel's lemma}.
+\end{example}
+
+
+\begin{exercise}
+Please lift the solution $x\equiv 10\pmod{7^2}$ to \eqref{eq: example of Hensel's lemma} and find a solution to the congruence equation $x^2-2\equiv 0\pmod{7^3}$.
+\end{exercise}
+
+\nocite{b-en1}
+\printbibliography[heading=bibintoc, title=\ebibname]
+
+\end{document}
