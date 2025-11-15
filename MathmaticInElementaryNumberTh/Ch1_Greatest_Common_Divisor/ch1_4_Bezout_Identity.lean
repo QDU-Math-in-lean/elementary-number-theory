@@ -28,7 +28,7 @@ namespace Bezout_Identity
 -- such that gcd(m, n) = am + bn
 #check exists_gcd_eq_mul_add_mul
 #check Int.gcd_dvd_iff
-theorem bezout_identity (m n : ℕ) (hm_not_zero : m ≠ 0) (hn_not_zero : n ≠ 0) :
+theorem bezout_identity (m n : ℕ) :
     ∃ a b : ℤ , Nat.gcd m n = a * m + b * n := by
     -- 将 m, n 视为整数
     let m' : ℤ := ↑m
