@@ -33,9 +33,7 @@ theorem le_two_exists_prime_divisors (n : ℕ) (hn : n ≥ 2) :
 theorem composite_prime_divisor_bound
 (n : ℕ) (hn : n ≥ 2) (h_composite : ¬Nat.Prime n) :
   ∃ p : ℕ, Nat.Prime p ∧ p ∣ n ∧ p ≤ Nat.sqrt n := by
-  have h_ne_one : n ≠ 1 := by
-    linarith
-
+  let p := Nat.minFac n
   sorry
 
 

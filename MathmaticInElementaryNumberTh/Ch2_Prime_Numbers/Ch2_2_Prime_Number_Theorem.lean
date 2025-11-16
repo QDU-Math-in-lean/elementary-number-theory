@@ -15,21 +15,22 @@ open Nat
 
 open Finset
 
+-- # Chapter 2 Prime Numbers
 
+-- ## 2.2 Prime Number Theorem
 
-#check IsCoprime.dvd_of_dvd_mul_left
-#check IsCoprime.dvd_of_dvd_mul_right
+-- ### Lemma 2.1 (Euclid's Lemma)
 
 -- Euclid's Lemma: For a prime number `p`, if `p ∣ m * n` with `m, n ∈ ℤ`, then `p ∣ m` or `p ∣ n`.
 lemma euclid_lemma {p m n : ℤ} (hp : Prime p) (hpmn : p ∣ m * n) :
   p ∣ m ∨ p ∣ n := by
-  sorry
+  have h_dvd_mul : p ∣ m * n ↔ p ∣ m ∨ p ∣ n := by
+    exact Prime.dvd_mul hp
+  rw [h_dvd_mul] at hpmn
+  exact hpmn
 
-/-- Example: Since `3` is a prime number and `3` divides `45 = 5 * 9`, then `3` must divide either `5` or `9`. -/
-example : (3 : ℤ) ∣ 45 → (3 : ℤ) ∣ 5 ∨ (3 : ℤ) ∣ 9 := by
-  have hp : Prime (3 : ℤ) := by
-    norm_num
-  sorry
+
+-- ### Theorem 2.1 (Euclid's Theorem)
 
 -- Euclid's Theorem 前置引理
 theorem two_le {m : ℕ} (h0 : m ≠ 0) (h1 : m ≠ 1) : 2 ≤ m := by

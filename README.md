@@ -21,7 +21,7 @@
 ### Ch2_Prime_Numbers
 
 - [ ] ch2_1_Prime_numbers
-- [ ] Ch2_2_Prime_Number_Theorem
+- [x] Ch2_2_Prime_Number_Theorem
 - [ ] Ch2_3_Fundamental _theoem_of_arithmetic
 - [ ] Ch2_4_p-adic_valuation
 
