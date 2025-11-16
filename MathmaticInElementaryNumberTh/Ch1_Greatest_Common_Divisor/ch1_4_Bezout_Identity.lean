@@ -23,11 +23,12 @@ namespace Bezout_Identity
 
 -- ### Theorem 1.2 (Bézout’s Identity)
 
--- For m, n ∈ Z, not both zero,
--- there exist a, b ∈ Z,
--- such that gcd(m, n) = am + bn
 #check exists_gcd_eq_mul_add_mul
 #check Int.gcd_dvd_iff
+/-- For m, n ∈ Z, not both zero,
+    there exist a, b ∈ Z,
+    such that gcd(m, n) = am + bn
+-/
 theorem bezout_identity (m n : ℕ) :
     ∃ a b : ℤ , Nat.gcd m n = a * m + b * n := by
     -- 将 m, n 视为整数

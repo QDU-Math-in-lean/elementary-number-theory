@@ -20,16 +20,16 @@
 
 ### Ch2_Prime_Numbers
 
-- [ ] ch2_1_Prime_numbers
+- [x] ch2_1_Prime_numbers
 - [x] Ch2_2_Prime_Number_Theorem
-- [ ] Ch2_3_Fundamental _theoem_of_arithmetic
-- [ ] Ch2_4_p-adic_valuation
+- [x] Ch2_3_Fundamental _theoem_of_arithmetic
+- [x] Ch2_4_p-adic_valuation
 
 ### Ch3_Congruences
 
-- [ ] Ch3_1_congruences
-- [ ] Ch3_2_Wilson's_theorem
-- [ ] Ch3_3_Euler's_theorem
+- [x] Ch3_1_congruences
+- [x] Ch3_2_Wilson's_theorem
+- [x] Ch3_3_Euler's_theorem
 
 
 ## 形式化证明目标

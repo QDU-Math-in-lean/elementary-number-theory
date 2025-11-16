@@ -15,7 +15,16 @@ open Int
 
 open Finset
 
--- any n , n > 2 ,n exists prime divisors
+-- # Chapter 2 Prime Numbers
+
+-- ## 2.1 Prime numbers
+
+namespace Prime_Numbers
+
+-- ### Proposition 2.1 (Existence of Prime Divisors)
+
+/-- any n , n > 2 ,n exists prime divisors
+-/
 theorem le_two_exists_prime_divisors (n : ℕ) (hn : n ≥ 2) :
   ∃ p : ℕ, Nat.Prime p ∧ p ∣ n := by
   have h_ne_one : n ≠ 1 := by
@@ -28,16 +37,46 @@ theorem le_two_exists_prime_divisors (n : ℕ) (hn : n ≥ 2) :
   · exact h_prime
   · exact Nat.minFac_dvd n
 
--- any composite number n has a prime divisor p ≤ √n
+
+-- ### Corollary 2.1 (Prime Divisor Bound for Composites)
+
 #check Nat.prime_def_le_sqrt
+#check Nat.minFac_sq_le_self
+#check NNReal.le_sqrt_iff_sq_le
+#check Real.le_sqrt
+/-- any composite number n has a prime divisor p ≤ √n
+-/
 theorem composite_prime_divisor_bound
 (n : ℕ) (hn : n ≥ 2) (h_composite : ¬Nat.Prime n) :
   ∃ p : ℕ, Nat.Prime p ∧ p ∣ n ∧ p ≤ Nat.sqrt n := by
   let p := Nat.minFac n
-  sorry
+  have hp : p = n.minFac := by
+    rfl
+  have hzero_lt_n : 0 < n := by
+    omega
+  have minFac_sq_le_self : n.minFac ^ 2 ≤ n := by
+    exact Nat.minFac_sq_le_self hzero_lt_n h_composite
+  have h_prime : Nat.Prime p := by
+    exact Nat.minFac_prime (by linarith)
+  have hp_pow : n.minFac ^ 2 = p * p := by
+    rw [hp]
+    grind
+  rw [hp_pow] at minFac_sq_le_self
+  have h_le_sqrt : p ≤ Nat.sqrt n := by
+    exact Nat.le_sqrt.2 minFac_sq_le_self
+  use p
+  -- 大小关系部分
+  constructor
+  · exact h_prime
+  · constructor
+    · exact Nat.minFac_dvd n
+    · exact h_le_sqrt
 
 
--- -- if n has no prime divisors, then n = 1
+-- ### Corollary 2.2 (Uniqueness of 1 in Prime Divisibility)
+
+/-- if n has no prime divisors, then n = 1
+-/
 theorem uniqueness_of_one_in_prime_divisibility (n : ℕ) :
   (∀ p : ℕ, Nat.Prime p → ¬(p ∣ n)) → n = 1 := by
   intro h
@@ -60,3 +99,5 @@ theorem uniqueness_of_one_in_prime_divisibility (n : ℕ) :
   obtain ⟨p, hp_prime, hp_dvd⟩ := le_two_exists_prime_divisors n h_ge_two
   specialize h p hp_prime
   exact (h hp_dvd).elim
+
+namespace Prime_Numbers

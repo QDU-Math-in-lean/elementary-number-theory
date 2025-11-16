@@ -23,12 +23,8 @@ namespace Division_with_remainder
 
 -- ### Theorem 1.1 (Division with remainder)
 
--- For m, n ∈ ℤ with m ≠ 0, there exists a unique pair of integers q and r such that
--- n = qm + r and 0 ≤ r < |m|.
--- Here q = ⌊n/m⌋is called the quotient, and r is called the remainder.
 #check Int.ediv_emod_unique
 #check Int.ediv_emod_unique'
-
 theorem Int.ediv_emod_unique'' {a b r q : ℤ} (hb : b ≠ 0) :
     a / b = q ∧ a % b = r ↔ r + b * q = a ∧ 0 ≤ r ∧ r < |b| := by
     have hcases := lt_or_gt_of_ne hb
@@ -48,6 +44,10 @@ theorem Int.ediv_emod_unique'' {a b r q : ℤ} (hb : b ≠ 0) :
             rw [abs_of_pos hpos]
         omega
 
+/-- For m, n ∈ ℤ with m ≠ 0, there exists a unique pair of integers q and r such that
+    n = qm + r and 0 ≤ r < |m|.
+    Here q = ⌊n/m⌋is called the quotient, and r is called the remainder.
+-/
 theorem int_division_with_remainder (n m : ℤ) (hm : m ≠ 0) :
     ∃ q : ℤ , ∃ r : ℤ , n = q * m + r ∧ 0 ≤ r ∧ r < |m| := by
     have hm_lt_zero : |m| > 0 := by

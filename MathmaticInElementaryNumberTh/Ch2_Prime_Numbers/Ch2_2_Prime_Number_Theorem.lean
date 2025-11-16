@@ -19,9 +19,14 @@ open Finset
 
 -- ## 2.2 Prime Number Theorem
 
+namespace Prime_Number_Theorem
+
 -- ### Lemma 2.1 (Euclid's Lemma)
 
--- Euclid's Lemma: For a prime number `p`, if `p ∣ m * n` with `m, n ∈ ℤ`, then `p ∣ m` or `p ∣ n`.
+/-- Euclid's Lemma: For a prime number `p`,
+  if `p ∣ m * n` with `m, n ∈ ℤ`,
+  then `p ∣ m` or `p ∣ n`.
+-/
 lemma euclid_lemma {p m n : ℤ} (hp : Prime p) (hpmn : p ∣ m * n) :
   p ∣ m ∨ p ∣ n := by
   have h_dvd_mul : p ∣ m * n ↔ p ∣ m ∨ p ∣ n := by
@@ -58,7 +63,8 @@ theorem exists_prime_factor {n : Nat} (h : 2 ≤ n) : ∃ p : Nat, p.Prime ∧ p
     use p, pp
     apply pdvd.trans mdvdn
 
-/-- Euclid's Theorem: There are infinitely many prime numbers. -/
+/-- Euclid's Theorem: There are infinitely many prime numbers.
+-/
 theorem euclid_theorem : ∀ n : ℕ, ∃ p : ℕ, Nat.Prime p ∧ p > n := by
   intro n
   have primes_infinite : ∀ n, ∃ p > n, Nat.Prime p := by
@@ -83,3 +89,5 @@ theorem euclid_theorem : ∀ n : ℕ, ∃ p : ℕ, Nat.Prime p ∧ p > n := by
     linarith [pp.two_le]
   specialize primes_infinite n
   grind
+
+namespace Prime_Number_Theorem
