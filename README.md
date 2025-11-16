@@ -3,24 +3,33 @@
 
 初等数论讲义的形式化证明 by lean
 
+## 版本
+
+使用的 lean4 版本为 v4.24.0-rc1
+
 
 ## Contents
 
 
-### Ch1
+### Ch1_Greatest_Common_Divisor
 
-- [x] ch1_1
-- [ ] ch1_2 
-- [x] ch1_3
-- [x] ch1_4
-- [x] ch1_5
+- [x] Ch1_1_Excat_Division
+- [x] Ch1_2_Division_with_remainder
+- [x] Ch1_3_Greatest_Common_Divisor
+- [x] ch1_4_Bezout_Identity
 
-### Ch2
+### Ch2_Prime_Numbers
 
-- [ ] ch2_1
-- [ ] ch2_2 
-- [ ] ch2_3
-- [ ] ch2_4
+- [ ] ch2_1_Prime_numbers
+- [x] Ch2_2_Prime_Number_Theorem
+- [ ] Ch2_3_Fundamental _theoem_of_arithmetic
+- [ ] Ch2_4_p-adic_valuation
+
+### Ch3_Congruences
+
+- [ ] Ch3_1_congruences
+- [ ] Ch3_2_Wilson's_theorem
+- [ ] Ch3_3_Euler's_theorem
 
 
 ## 形式化证明目标
