@@ -13,12 +13,15 @@ open ZMod
 
 -- ### Theorem 3.1 (Wilson's Theorem)
 
+--666
 /- A positive integer n > 1 is a prime if and only if (n −1)! + 1 ≡0 (mod n) -/
 theorem prime_iff_fac_equiv_neg_one (h : n ≠ 1) : Nat.Prime n ↔ (Nat.factorial (n - 1) : ZMod n) = -1 := by
   refine ⟨fun h1 => ?_, fun h2 => Nat.prime_of_fac_equiv_neg_one h2 h⟩
   haveI := Fact.mk h1
   exact ZMod.wilsons_lemma n
 
+
+--666
 /-- For `n ≠ 1`, `(n-1)!` is congruent to `-1` modulo `n` only if n is prime. -/
 theorem prime_of_fac_equiv_neg_one (h : (Nat.factorial (n - 1) : ZMod n) = -1) (h1 : n ≠ 1) : Nat.Prime n := by
   rcases eq_or_ne n 0 with (rfl | h0)
@@ -29,5 +32,6 @@ theorem prime_of_fac_equiv_neg_one (h : (Nat.factorial (n - 1) : ZMod n) = -1) (
   have hm : m ∣ Nat.factorial (n - 1) := Nat.dvd_factorial (pos_of_gt hm2) (Nat.le_pred_of_lt hm3)
   refine hm2.ne' (Nat.dvd_one.mp ((Nat.dvd_add_right hm).mp (hm1.trans ?_)))
   rw [← ZMod.natCast_eq_zero_iff, Nat.cast_add, Nat.cast_one, h, neg_add_cancel]
+
 
 end WilsonTheorem

@@ -49,6 +49,8 @@ def common_divisors (m n : ℤ) : Finset ℤ :=
 -/
 def gcd (m n : ℤ) : ℤ := Int.gcd m n -- from mathlib
 
+
+--666
 /-- 0 ≤ gcd m n
 -/
 lemma gcd_nonneg (m n : ℤ) : 0 ≤ gcd m n := by
@@ -58,6 +60,7 @@ lemma gcd_nonneg (m n : ℤ) : 0 ≤ gcd m n := by
 
 -- ### Proposition 1.5.1 (The greatest common divisor is commutative)
 
+--666
 /-- gcd(m, n) = gcd(n, m)
 -/
 theorem gcd_comm (m n : ℤ) : gcd m n = gcd n m := by
@@ -72,6 +75,7 @@ theorem gcd_comm (m n : ℤ) : gcd m n = gcd n m := by
 
 -- ### Proposition 1.5.2 (The greatest common divisor divides both numbers)
 
+--666
 /-- If m|n, 0 ≤ m, then gcd(m, n) = m
 -/
 theorem gcd_eq_left (m n : ℤ) (hmn : m ∣ n) (hm_le_0: 0 ≤ m): gcd m n = m := by
@@ -80,6 +84,7 @@ theorem gcd_eq_left (m n : ℤ) (hmn : m ∣ n) (hm_le_0: 0 ≤ m): gcd m n = m 
 
 -- ### Proposition 1.5.3 (The greatest common divisor divides both numbers)
 
+--666
 /-- In particular, gcd(m, 0) = m for any m ∈ Z with m > 0
 -/
 theorem gcd_eq_zero (m : ℤ) : gcd m 0 = Int.natAbs m := by
@@ -90,5 +95,6 @@ theorem gcd_eq_zero (m : ℤ) : gcd m 0 = Int.natAbs m := by
     rfl
   rw [h3]
   simp
+
 
 end Greatest_Common_Divisor

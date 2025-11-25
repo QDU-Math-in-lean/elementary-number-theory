@@ -25,6 +25,9 @@ namespace Division_with_remainder
 
 #check Int.ediv_emod_unique
 #check Int.ediv_emod_unique'
+
+--666
+/- 代余除法的定义-/
 theorem Int.ediv_emod_unique'' {a b r q : ℤ} (hb : b ≠ 0) :
     a / b = q ∧ a % b = r ↔ r + b * q = a ∧ 0 ≤ r ∧ r < |b| := by
     have hcases := lt_or_gt_of_ne hb
@@ -44,6 +47,8 @@ theorem Int.ediv_emod_unique'' {a b r q : ℤ} (hb : b ≠ 0) :
             rw [abs_of_pos hpos]
         omega
 
+
+--666
 /-- For m, n ∈ ℤ with m ≠ 0, there exists a unique pair of integers q and r such that
     n = qm + r and 0 ≤ r < |m|.
     Here q = ⌊n/m⌋is called the quotient, and r is called the remainder.
@@ -68,5 +73,6 @@ theorem int_division_with_remainder (n m : ℤ) (hm : m ≠ 0) :
     rw [hr] at ediv_emod_unique
     simp at ediv_emod_unique
     grind
+
 
 end Division_with_remainder

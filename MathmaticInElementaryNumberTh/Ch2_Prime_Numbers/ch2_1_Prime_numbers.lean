@@ -23,6 +23,7 @@ namespace Prime_Numbers
 
 -- ### Proposition 2.1 (Existence of Prime Divisors)
 
+--666
 /-- any n , n > 2 ,n exists prime divisors
 -/
 theorem le_two_exists_prime_divisors (n : ℕ) (hn : n ≥ 2) :
@@ -44,6 +45,8 @@ theorem le_two_exists_prime_divisors (n : ℕ) (hn : n ≥ 2) :
 #check Nat.minFac_sq_le_self
 #check NNReal.le_sqrt_iff_sq_le
 #check Real.le_sqrt
+
+--666
 /-- any composite number n has a prime divisor p ≤ √n
 -/
 theorem composite_prime_divisor_bound
@@ -75,6 +78,7 @@ theorem composite_prime_divisor_bound
 
 -- ### Corollary 2.2 (Uniqueness of 1 in Prime Divisibility)
 
+--666
 /-- if n has no prime divisors, then n = 1
 -/
 theorem uniqueness_of_one_in_prime_divisibility (n : ℕ) :

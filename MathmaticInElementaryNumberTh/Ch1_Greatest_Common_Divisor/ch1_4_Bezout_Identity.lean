@@ -25,6 +25,8 @@ namespace Bezout_Identity
 
 #check exists_gcd_eq_mul_add_mul
 #check Int.gcd_dvd_iff
+
+--666
 /-- For m, n ∈ Z, not both zero,
     there exist a, b ∈ Z,
     such that gcd(m, n) = am + bn
@@ -45,5 +47,6 @@ theorem bezout_identity (m n : ℕ) :
     use Int.gcdA m' n', Int.gcdB m' n'
     -- 证明等式
     rw [h_gcd_eq, h_bezout]
+
 
 end Bezout_Identity

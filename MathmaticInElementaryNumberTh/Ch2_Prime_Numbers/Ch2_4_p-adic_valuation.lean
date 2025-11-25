@@ -15,6 +15,7 @@ variable {p : ℕ} [hp : Fact p.Prime]
 
 -- ### Proposition 2.2 (Additivity of p-adic Valuation
 
+--666
 /- Let p be a prime, then for any m, n ∈N, we have vp(mn) = vp(m) + vp(n).-/
 protected theorem mul {q r : ℚ} (hq : q ≠ 0) (hr : r ≠ 0) :
     padicValRat p (q * r) = padicValRat p q + padicValRat p r := by
@@ -31,8 +32,10 @@ protected theorem mul {q r : ℚ} (hq : q ≠ 0) (hr : r ≠ 0) :
   · simp [padicValRat.finite_int_prime_iff]
   · simp [padicValRat.finite_int_prime_iff, hq, hr]
 
+
 --### Proposition 2.3 (Ultrametric Inequality)
 
+--666
 /- Let p be a prime, then for any m, n ∈N,
 we havevp(m + n) ≥min (vp(m), vp(n)),with equality if vp(m) ̸= vp(n)-/
 theorem min_le_padicValRat_add {q r : ℚ} (hqr : q + r ≠ 0) :
@@ -40,5 +43,6 @@ theorem min_le_padicValRat_add {q r : ℚ} (hqr : q + r ≠ 0) :
   (le_total (padicValRat p q) (padicValRat p r)).elim
   (fun h => by rw [min_eq_left h]; exact padicValRat.le_padicValRat_add_of_le hqr h)
   (fun h => by rw [min_eq_right h, add_comm]; exact padicValRat.le_padicValRat_add_of_le (by rwa [add_comm]) h)
+
 
 end p_adic_valuation

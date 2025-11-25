@@ -13,6 +13,7 @@ scoped notation "φ" => Nat.totient
 
 -- ### Theorem 3.2 (Euler's Theorem)
 
+--666
 /- If a, m ∈Nare coprime, then aφ(m) ≡1 (mod m) -/
 theorem Nat.ModEq.pow_totient {x n : ℕ} (h : Nat.Coprime x n) : x ^ φ n ≡ 1 [MOD n] := by
   rw [← ZMod.natCast_eq_natCast_iff]

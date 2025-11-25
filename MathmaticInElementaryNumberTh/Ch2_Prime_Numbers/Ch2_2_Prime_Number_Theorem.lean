@@ -23,6 +23,7 @@ namespace Prime_Number_Theorem
 
 -- ### Lemma 2.1 (Euclid's Lemma)
 
+--666
 /-- Euclid's Lemma: For a prime number `p`,
   if `p ∣ m * n` with `m, n ∈ ℤ`,
   then `p ∣ m` or `p ∣ n`.
@@ -37,7 +38,8 @@ lemma euclid_lemma {p m n : ℤ} (hp : Prime p) (hpmn : p ∣ m * n) :
 
 -- ### Theorem 2.1 (Euclid's Theorem)
 
--- Euclid's Theorem 前置引理
+--666
+/- Euclid's Theorem 前置引理-/
 theorem two_le {m : ℕ} (h0 : m ≠ 0) (h1 : m ≠ 1) : 2 ≤ m := by
   cases m; contradiction
   case succ m =>
@@ -45,6 +47,9 @@ theorem two_le {m : ℕ} (h0 : m ≠ 0) (h1 : m ≠ 1) : 2 ≤ m := by
     repeat apply Nat.succ_le_succ
     simp
 
+
+--666
+/-- For any integer n ≥ 2, there exists a prime number p dividing n-/
 theorem exists_prime_factor {n : Nat} (h : 2 ≤ n) : ∃ p : Nat, p.Prime ∧ p ∣ n := by
   by_cases np : n.Prime
   · use n, np
@@ -63,6 +68,8 @@ theorem exists_prime_factor {n : Nat} (h : 2 ≤ n) : ∃ p : Nat, p.Prime ∧ p
     use p, pp
     apply pdvd.trans mdvdn
 
+
+--666
 /-- Euclid's Theorem: There are infinitely many prime numbers.
 -/
 theorem euclid_theorem : ∀ n : ℕ, ∃ p : ℕ, Nat.Prime p ∧ p > n := by
@@ -89,5 +96,6 @@ theorem euclid_theorem : ∀ n : ℕ, ∃ p : ℕ, Nat.Prime p ∧ p > n := by
     linarith [pp.two_le]
   specialize primes_infinite n
   grind
+
 
 namespace Prime_Number_Theorem

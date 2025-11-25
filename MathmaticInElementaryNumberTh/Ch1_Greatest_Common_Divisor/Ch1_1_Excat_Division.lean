@@ -35,6 +35,7 @@ def e_dvd_equiv (m n : ℤ) : Prop := m ∣ n
 
 -- ### Proposition 1.1 (Mutual Divisibility Implies Equality)
 
+--666
 /-- If m |n and n |m, then m = ±n.
 -/
 theorem e_dvd_iff_eq (m n : ℤ) (hn : n ≠ 0) :
@@ -55,13 +56,11 @@ theorem e_dvd_iff_eq (m n : ℤ) (hn : n ≠ 0) :
       cases h_3
       · contradiction
       · linarith -- 直接用linarith就能解决,第一个分支矛盾,第二个分支直接linarith
-
     have hq1 : q1 = 1 ∨ q1 = -1 := by
       exact Int.eq_one_or_neg_one_of_mul_eq_one hq
     cases hq1 with -- 析取处理
     | inl hq1' => left; rw [h1, hq1']; ring
     | inr hq1' => right; rw [h1, hq1']; ring
-
   · rintro (h1 | h2)
     constructor
     · use 1
@@ -81,6 +80,7 @@ theorem e_dvd_iff_eq (m n : ℤ) (hn : n ≠ 0) :
 
 -- ### Proposition 1.2 (Transitivity of Divisibility)
 
+--666
 /-- If d|m and m|n, then d|n.
 -/
 theorem e_dvd_trans (d m n : ℤ) :
@@ -95,6 +95,7 @@ theorem e_dvd_trans (d m n : ℤ) :
 
 -- ### Proposition 1.3 (Divisibility of Linear Combination)
 
+--666
 /-- If d|m and d|n, then d|am + bn for any a, b ∈Z.
 -/
 theorem e_dvd_add_mul (d m n a b : ℤ) :
@@ -109,16 +110,15 @@ theorem e_dvd_add_mul (d m n a b : ℤ) :
 
 -- ### Proposition 1.4 (Bound of Divisors)
 
+--666
 /-- If m|n and n ≠ 0, then |m|≤|n|
 -/
 theorem e_dvd_le (m n : ℤ)  (hn : n ≠ 0) :
     e_dvd m n → |m| ≤ |n| := by
   intro h_dvd_mn
   rcases h_dvd_mn with ⟨q, h1⟩
-
   have h_abs : |n| = |q| * |m| := by
     rw [h1, abs_mul]
-
   have hq : |q| ≥ 1 := by
     by_contra hq1 -- 反证法
     push_neg at hq1 -- 去否定
@@ -130,11 +130,9 @@ theorem e_dvd_le (m n : ℤ)  (hn : n ≠ 0) :
     have h0 : n = 0 := by
       rw [h1, zero_mul] -- 出矛盾
     contradiction
-
   have h_abs' : |n| = |m| * |q| := by
     rw [h1, abs_mul]
     linarith
-
   have h_le : |m| * 1 ≤ |n| := by -- 中间步处理
     exact (mul_le_mul_of_nonneg_left hq (abs_nonneg m)).trans_eq h_abs'.symm
   linarith
@@ -142,6 +140,7 @@ theorem e_dvd_le (m n : ℤ)  (hn : n ≠ 0) :
 
 -- ### Corollary 1.1 (Divisibility with Restriction Forces Zero)
 
+--666
 /-- If m|n and |n| < |m|, then n = 0
 -/
 theorem e_dvd_abs_lt_zero (m n : ℤ) (hn : n ≠ 0) :
@@ -150,5 +149,6 @@ theorem e_dvd_abs_lt_zero (m n : ℤ) (hn : n ≠ 0) :
   have h_le : |m| ≤ |n| := by
     exact e_dvd_le m n hn h_dvd_mn
   linarith
+
 
 end Excat_Division
